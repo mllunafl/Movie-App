@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="sandboxApp.movie.detail.title">Movie</span> {{vm.movie.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="sandboxApp.movie.title">Title</span></dt>
+        <dd>
+            <span>{{vm.movie.title}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.interest">Interest</span></dt>
+        <dd>
+            <span data-translate="{{'sandboxApp.Interest.' + vm.movie.interest}}">{{vm.movie.interest}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="movie-detail.edit({id:vm.movie.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
