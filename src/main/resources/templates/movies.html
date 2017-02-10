@@ -1,25 +1,61 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>People</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Movies</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <meta name="description" content=""></meta>
+    <meta name="author" content=""></meta>
+    <link rel="icon" href="../../favicon.ico"></link>
+    <link href="content/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"></link>
+    <link href="content/css/movies.css" rel="stylesheet"></link>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 </head>
 <body>
-	<h1>Top Movies</h1>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Title</th>
-			<th>Interest</th>
-		</tr>
-		<tr th:each="movie: ${movies}">
-			<td align="center">
-				<a th:href="@{'/movie/' + ${movie.id}}" 
-				   th:text="${movie.id}"></a>
-			</td>
-			<td align="center" th:text="${movie.title}" />
-			<td align="center" th:text="${movie.interest}" />
-		</tr>
-	</table>
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Cover</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Cover your page.</h1>
+                <h1>Popular Movies</h1>
+                <li class="col-md-4" th:each="movie: ${movies}" th:text="${movie.title}">En las Orillas del Sar</li>
+                <p class="lead">
+                    <a href="#" class="btn btn-lg btn-default">Learn more</a>
+                </p>
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a
+                        href="https://twitter.com/mdo">@mdo</a>.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
 </body>
 </html>

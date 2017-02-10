@@ -62,6 +62,7 @@ public class SandboxApp {
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication app = new SpringApplication(SandboxApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
+
         Environment env = app.run(args).getEnvironment();
         log.info("\n----------------------------------------------------------\n\t" +
                 "Application '{}' is running! Access URLs:\n\t" +
