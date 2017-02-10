@@ -44,6 +44,15 @@ public class MovieResourceIntTest {
     private static final Interest DEFAULT_INTEREST = Interest.SEEN_IT;
     private static final Interest UPDATED_INTEREST = Interest.WANT_TO_SEE;
 
+    private static final Integer DEFAULT_DBMOVIE_ID = 1;
+    private static final Integer UPDATED_DBMOVIE_ID = 2;
+
+    private static final String DEFAULT_POSTER_PATH = "AAAAAAAAAA";
+    private static final String UPDATED_POSTER_PATH = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POSTER_URL = "AAAAAAAAAA";
+    private static final String UPDATED_POSTER_URL = "BBBBBBBBBB";
+
     @Autowired
     private MovieRepository movieRepository;
 
@@ -81,7 +90,10 @@ public class MovieResourceIntTest {
     public static Movie createEntity(EntityManager em) {
         Movie movie = new Movie()
                 .title(DEFAULT_TITLE)
-                .interest(DEFAULT_INTEREST);
+                .interest(DEFAULT_INTEREST)
+                .dbmovie_id(DEFAULT_DBMOVIE_ID)
+                .poster_path(DEFAULT_POSTER_PATH)
+                .poster_url(DEFAULT_POSTER_URL);
         return movie;
     }
 
@@ -108,6 +120,9 @@ public class MovieResourceIntTest {
         Movie testMovie = movieList.get(movieList.size() - 1);
         assertThat(testMovie.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testMovie.getInterest()).isEqualTo(DEFAULT_INTEREST);
+        assertThat(testMovie.getDbmovie_id()).isEqualTo(DEFAULT_DBMOVIE_ID);
+        assertThat(testMovie.getPoster_path()).isEqualTo(DEFAULT_POSTER_PATH);
+        assertThat(testMovie.getPoster_url()).isEqualTo(DEFAULT_POSTER_URL);
     }
 
     @Test
@@ -150,6 +165,24 @@ public class MovieResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDbmovie_idIsRequired() throws Exception {
+        int databaseSizeBeforeTest = movieRepository.findAll().size();
+        // set the field null
+        movie.setDbmovie_id(null);
+
+        // Create the Movie, which fails.
+
+        restMovieMockMvc.perform(post("/api/movies")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(movie)))
+            .andExpect(status().isBadRequest());
+
+        List<Movie> movieList = movieRepository.findAll();
+        assertThat(movieList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllMovies() throws Exception {
         // Initialize the database
         movieRepository.saveAndFlush(movie);
@@ -160,7 +193,10 @@ public class MovieResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(movie.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].interest").value(hasItem(DEFAULT_INTEREST.toString())));
+            .andExpect(jsonPath("$.[*].interest").value(hasItem(DEFAULT_INTEREST.toString())))
+            .andExpect(jsonPath("$.[*].dbmovie_id").value(hasItem(DEFAULT_DBMOVIE_ID)))
+            .andExpect(jsonPath("$.[*].poster_path").value(hasItem(DEFAULT_POSTER_PATH.toString())))
+            .andExpect(jsonPath("$.[*].poster_url").value(hasItem(DEFAULT_POSTER_URL.toString())));
     }
 
     @Test
@@ -175,7 +211,10 @@ public class MovieResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(movie.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
-            .andExpect(jsonPath("$.interest").value(DEFAULT_INTEREST.toString()));
+            .andExpect(jsonPath("$.interest").value(DEFAULT_INTEREST.toString()))
+            .andExpect(jsonPath("$.dbmovie_id").value(DEFAULT_DBMOVIE_ID))
+            .andExpect(jsonPath("$.poster_path").value(DEFAULT_POSTER_PATH.toString()))
+            .andExpect(jsonPath("$.poster_url").value(DEFAULT_POSTER_URL.toString()));
     }
 
     @Test
@@ -198,7 +237,10 @@ public class MovieResourceIntTest {
         Movie updatedMovie = movieRepository.findOne(movie.getId());
         updatedMovie
                 .title(UPDATED_TITLE)
-                .interest(UPDATED_INTEREST);
+                .interest(UPDATED_INTEREST)
+                .dbmovie_id(UPDATED_DBMOVIE_ID)
+                .poster_path(UPDATED_POSTER_PATH)
+                .poster_url(UPDATED_POSTER_URL);
 
         restMovieMockMvc.perform(put("/api/movies")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -211,6 +253,9 @@ public class MovieResourceIntTest {
         Movie testMovie = movieList.get(movieList.size() - 1);
         assertThat(testMovie.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testMovie.getInterest()).isEqualTo(UPDATED_INTEREST);
+        assertThat(testMovie.getDbmovie_id()).isEqualTo(UPDATED_DBMOVIE_ID);
+        assertThat(testMovie.getPoster_path()).isEqualTo(UPDATED_POSTER_PATH);
+        assertThat(testMovie.getPoster_url()).isEqualTo(UPDATED_POSTER_URL);
     }
 
     @Test

@@ -49,11 +49,10 @@ body {
   vertical-align: top;
 }
 .cover-container {
-  padding-to 5%;
   margin-right: auto;
   margin-left: auto;
 }
-.cover-heading{
+.cover-heading{3
   padding-top: 5%;
 }
 
@@ -121,6 +120,11 @@ body {
     text-align: left;
 }
 
+.poster{
+    width: 200px;
+
+}
+
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
@@ -184,6 +188,6 @@ body {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    width: 100%;
   }
 }

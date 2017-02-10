@@ -33,6 +33,34 @@
                 <option value="NOT_INTERESTED" data-translate="sandboxApp.Interest.NOT_INTERESTED">NOT_INTERESTED</option>
             </select>
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.dbmovie_id" for="field_dbmovie_id">Dbmovie Id</label>
+            <input type="number" class="form-control" name="dbmovie_id" id="field_dbmovie_id"
+                    ng-model="vm.movie.dbmovie_id"
+                    required/>
+            <div ng-show="editForm.dbmovie_id.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dbmovie_id.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dbmovie_id.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.poster_path" for="field_poster_path">Poster Path</label>
+            <input type="text" class="form-control" name="poster_path" id="field_poster_path"
+                    ng-model="vm.movie.poster_path"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.poster_url" for="field_poster_url">Poster Url</label>
+            <input type="text" class="form-control" name="poster_url" id="field_poster_url"
+                    ng-model="vm.movie.poster_url"
+                    />
+        </div>
 
     </div>
     <div class="modal-footer">

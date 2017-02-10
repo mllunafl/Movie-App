@@ -14,6 +14,21 @@
             "fieldType": "Interest",
             "fieldValues": "SEEN_IT,WANT_TO_SEE,NOT_INTERESTED",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "dbmovie_id",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "poster_path",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "poster_url",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170207220703",

@@ -3,6 +3,7 @@ package com.example.api;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DBMovie {
+public class DBMovie implements Serializable {
 
     @JsonProperty("id")
     private int id;
@@ -29,12 +30,8 @@ public class DBMovie {
 
     @JsonProperty("release_date")
     private String releaseDate;
-    @JsonProperty("adult")
-    private boolean adult;
-    @JsonProperty("belongs_to_collection")
-    private Collection belongsToCollection;
-    @JsonProperty("budget")
-    private long budget;
+
+
     @JsonProperty("genres")
     private List<Genre> genres;
     @JsonProperty("homepage")
@@ -50,10 +47,8 @@ public class DBMovie {
     @JsonProperty("original_language")
     private String originalLanguage;
 
-    @JsonProperty("production_companies")
-    private List<ProductionCompany> productionCompanies;
-    @JsonProperty("production_countries")
-    private List<ProductionCountry> productionCountries;
+
+
 
     @JsonProperty("revenue")
     private long revenue;
@@ -79,7 +74,7 @@ public class DBMovie {
 
     @Override
     public String toString() {
-        return title + " - " + releaseDate;
+        return title + " - " + releaseDate + " - " + id;
     }
 
 
@@ -111,18 +106,6 @@ public class DBMovie {
         return releaseDate;
     }
 
-    public boolean isAdult() {
-        return adult;
-    }
-
-    public Collection getBelongsToCollection() {
-        return belongsToCollection;
-    }
-
-    public long getBudget() {
-        return budget;
-    }
-
     public List<Genre> getGenres() {
         return genres;
     }
@@ -141,14 +124,6 @@ public class DBMovie {
 
     public String getOriginalLanguage() {
         return originalLanguage;
-    }
-
-    public List<ProductionCompany> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public List<ProductionCountry> getProductionCountries() {
-        return productionCountries;
     }
 
     public long getRevenue() {

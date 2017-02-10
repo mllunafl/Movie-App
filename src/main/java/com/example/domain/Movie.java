@@ -4,8 +4,6 @@ package com.example.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import com.example.domain.enumeration.Interest;
@@ -30,6 +28,16 @@ public class Movie implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "interest")
     private Interest interest;
+
+    @NotNull
+    @Column(name = "dbmovie_id", nullable = false)
+    private Integer dbmovieId;
+
+    @Column(name = "poster_path")
+    private String posterPath;
+
+    @Column(name = "poster_url")
+    private String posterUrl;
 
     public Long getId() {
         return id;
@@ -65,6 +73,45 @@ public class Movie implements Serializable {
         this.interest = interest;
     }
 
+    public Integer getDbmovie_id() {
+        return dbmovieId;
+    }
+
+    public Movie dbmovie_id(Integer dbmovie_id) {
+        this.dbmovieId = dbmovie_id;
+        return this;
+    }
+
+    public void setDbmovie_id(Integer dbmovie_id) {
+        this.dbmovieId = dbmovie_id;
+    }
+
+    public String getPoster_path() {
+        return posterPath;
+    }
+
+    public Movie poster_path(String poster_path) {
+        this.posterPath = poster_path;
+        return this;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.posterPath = poster_path;
+    }
+
+    public String getPoster_url() {
+        return posterUrl;
+    }
+
+    public Movie poster_url(String poster_url) {
+        this.posterUrl = poster_url;
+        return this;
+    }
+
+    public void setPoster_url(String poster_url) {
+        this.posterUrl = poster_url;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -91,6 +138,9 @@ public class Movie implements Serializable {
             "id=" + id +
             ", title='" + title + "'" +
             ", interest='" + interest + "'" +
+            ", dbmovieId='" + dbmovieId + "'" +
+            ", posterPath='" + posterPath + "'" +
+            ", posterUrl='" + posterUrl + "'" +
             '}';
     }
 }

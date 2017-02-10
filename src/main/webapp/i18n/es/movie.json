@@ -17,7 +17,10 @@
                 "title": "Movie"
             },
             "title": "Title",
-            "interest": "Interest"
+            "interest": "Interest",
+            "dbmovie_id": "Dbmovie Id",
+            "poster_path": "Poster Path",
+            "poster_url": "Poster Url"
         }
     }
 }
