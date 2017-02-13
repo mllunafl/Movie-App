@@ -1,6 +1,14 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "movie_wishlist",
+            "otherEntityName": "movie_wishlist",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "movie"
+        }
+    ],
     "fields": [
         {
             "fieldName": "title",

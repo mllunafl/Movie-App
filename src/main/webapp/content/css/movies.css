@@ -121,9 +121,65 @@ body {
 }
 
 .poster{
-    width: 200px;
+    width: 150px;
 
 }
+
+
+
+
+//
+// OffCanvas Dropdown
+//
+
+.dropdown-menu[data-toggle="offcanvas-dropdown"] {
+  overflow: hidden;
+  > li > a {
+    -webkit-transition: -webkit-transform ease .2s;
+  }
+  &.open {
+    .offcanvas-content {
+      right: 0;
+      left: 15px;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.75);
+    }
+    > li > a {
+      -webkit-transform: translateX(-50%);
+    }
+  }
+}
+
+.offcanvas-content {
+  position: absolute;
+  top:0; bottom: 0;
+  right: -100%;
+  left: 100%;;
+  background-color: #fff;
+  overflow-y: auto;
+  transition: all ease .2s;
+  -webkit-transition: all ease .2s;
+}
+
+.offcanvas-toggle {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+// Styling
+
+body {
+  margin: 50px;
+  text-align: center;
+  background-color: #f1f2f3;
+}
+
+.dropdown-menu {
+  text-align: left;
+  box-shadow: none;
+}
+
+
+
 
 @media (min-width: 768px) {
   .masthead-brand {

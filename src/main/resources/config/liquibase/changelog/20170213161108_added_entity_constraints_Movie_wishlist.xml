@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Movie_wishlist.
+    -->
+    <changeSet id="20170213161108-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="movie_wishlists_id"
+                                 baseTableName="movie_wishlist_movie"
+                                 constraintName="fk_movie_wishlist_movie_movie_wishlists_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="movie_wishlist"/>
+        <addForeignKeyConstraint baseColumnNames="movies_id"
+                                 baseTableName="movie_wishlist_movie"
+                                 constraintName="fk_movie_wishlist_movie_movies_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="movie"/>
+        
+    </changeSet>
+</databaseChangeLog>

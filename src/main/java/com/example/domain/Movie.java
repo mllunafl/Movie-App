@@ -1,9 +1,12 @@
 package com.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import com.example.domain.enumeration.Interest;
@@ -31,13 +34,17 @@ public class Movie implements Serializable {
 
     @NotNull
     @Column(name = "dbmovie_id", nullable = false)
-    private Integer dbmovieId;
+    private Integer dbmovie_id;
 
     @Column(name = "poster_path")
-    private String posterPath;
+    private String poster_path;
 
     @Column(name = "poster_url")
-    private String posterUrl;
+    private String poster_url;
+
+    @ManyToMany(mappedBy = "movies")
+    @JsonIgnore
+    private Set<Movie_wishlist> movie_wishlists = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -74,42 +81,67 @@ public class Movie implements Serializable {
     }
 
     public Integer getDbmovie_id() {
-        return dbmovieId;
+        return dbmovie_id;
     }
 
     public Movie dbmovie_id(Integer dbmovie_id) {
-        this.dbmovieId = dbmovie_id;
+        this.dbmovie_id = dbmovie_id;
         return this;
     }
 
     public void setDbmovie_id(Integer dbmovie_id) {
-        this.dbmovieId = dbmovie_id;
+        this.dbmovie_id = dbmovie_id;
     }
 
     public String getPoster_path() {
-        return posterPath;
+        return poster_path;
     }
 
     public Movie poster_path(String poster_path) {
-        this.posterPath = poster_path;
+        this.poster_path = poster_path;
         return this;
     }
 
     public void setPoster_path(String poster_path) {
-        this.posterPath = poster_path;
+        this.poster_path = poster_path;
     }
 
     public String getPoster_url() {
-        return posterUrl;
+        return poster_url;
     }
 
     public Movie poster_url(String poster_url) {
-        this.posterUrl = poster_url;
+        this.poster_url = poster_url;
         return this;
     }
 
     public void setPoster_url(String poster_url) {
-        this.posterUrl = poster_url;
+        this.poster_url = poster_url;
+    }
+
+    public Set<Movie_wishlist> getMovie_wishlists() {
+        return movie_wishlists;
+    }
+
+    public Movie movie_wishlists(Set<Movie_wishlist> movie_wishlists) {
+        this.movie_wishlists = movie_wishlists;
+        return this;
+    }
+
+    public Movie addMovie_wishlist(Movie_wishlist movie_wishlist) {
+        this.movie_wishlists.add(movie_wishlist);
+        movie_wishlist.getMovies().add(this);
+        return this;
+    }
+
+    public Movie removeMovie_wishlist(Movie_wishlist movie_wishlist) {
+        this.movie_wishlists.remove(movie_wishlist);
+        movie_wishlist.getMovies().remove(this);
+        return this;
+    }
+
+    public void setMovie_wishlists(Set<Movie_wishlist> movie_wishlists) {
+        this.movie_wishlists = movie_wishlists;
     }
 
     @Override
@@ -138,9 +170,9 @@ public class Movie implements Serializable {
             "id=" + id +
             ", title='" + title + "'" +
             ", interest='" + interest + "'" +
-            ", dbmovieId='" + dbmovieId + "'" +
-            ", posterPath='" + posterPath + "'" +
-            ", posterUrl='" + posterUrl + "'" +
+            ", dbmovie_id='" + dbmovie_id + "'" +
+            ", poster_path='" + poster_path + "'" +
+            ", poster_url='" + poster_url + "'" +
             '}';
     }
 }

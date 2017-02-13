@@ -2,9 +2,9 @@
 
 describe('Controller Tests', function() {
 
-    describe('Movie Management Detail Controller', function() {
+    describe('Movie_wishlist Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockMovie, MockMovie_wishlist;
+        var MockEntity, MockPreviousState, MockMovie_wishlist, MockMovie;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,8 +12,8 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
-            MockMovie = jasmine.createSpy('MockMovie');
             MockMovie_wishlist = jasmine.createSpy('MockMovie_wishlist');
+            MockMovie = jasmine.createSpy('MockMovie');
             
 
             var locals = {
@@ -21,18 +21,18 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Movie': MockMovie,
-                'Movie_wishlist': MockMovie_wishlist
+                'Movie_wishlist': MockMovie_wishlist,
+                'Movie': MockMovie
             };
             createController = function() {
-                $injector.get('$controller')("MovieDetailController", locals);
+                $injector.get('$controller')("Movie_wishlistDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'sandboxApp:movieUpdate';
+                var eventType = 'sandboxApp:movie_wishlistUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

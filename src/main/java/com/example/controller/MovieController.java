@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,30 +17,26 @@ import java.util.List;
 public class MovieController {
 
 
+    @PostMapping("/movies")
+    @ResponseBody
+    public String postMovies(Model model) {
+        System.out.println("hey we did it!!");
+        return "ok";
+    }
 
 	@GetMapping("/movies")
     public String getAll(Model model) {
 	    DBMovieService dbMovieService = new DBMovieService();
-//	    DBMovie dbMovie = dbMovieService.getDbMovie();
-        Movie movie = new Movie();
-//        movie.setTitle(dbMovie.getTitle());
-//        model.addAttribute("movies",movie);
-//        return "movies";
-       //List<DBMovie> DBmovies = dbMovieService.getListDbMovie();
-        List<Movie> movies = new ArrayList<>();
-
-        //Iterator<DBMovie> it = DBmovies.iterator();
-//        while (it.hasNext()) {
-//            Movie movie1 = new Movie();
-//            movie1.setTitle(it.next().getOriginalTitle());
-//            System.out.println(movie1);
-//            movies.add(movie1);
-//
-//        }
-        //String image = dbMovieService.getdbMovieImgUrl();
+        List<Movie> movies = dbMovieService.getPopularDbMovie();
+        System.out.println(movies);
         model.addAttribute("movies", movies);
-        //model.addAttribute("image", image);
+        //model.addAttribute("image", movies.get(1).getPoster_url());
         return "movies";
+    }
+
+    @GetMapping("/movies/login")
+    public String getLogin(Model model) {
+	    return "login";
     }
 }
 
