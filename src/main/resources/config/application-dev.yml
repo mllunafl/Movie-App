@@ -104,3 +104,15 @@ jhipster:
 # ===================================================================
 
 application:
+
+facebook:
+  client:
+    clientId: 214127299060111
+    clientSecret: 7fc53203166574e76416bce7d931458e
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me

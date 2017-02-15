@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Welcome Home</h1>
+You can see some stuff that does not require a log in here
+<ul>
+    <li>Thing 1</li>
+    <li>Thing 2</li>
+</ul>
+
+<div sec:authorize="isAuthenticated()">
+    You are already logged in so you can go to
+    <a href="/auth/home">home page if you have logged in</a> or <a href="/movies">go to the list of Movies</a> directly
+</div>
+<div sec:authorize="isAnonymous()">
+    But to really use this app you should <a href="/login">login</a>
+    <p/>
+    If you try go to a protected page like
+    <a href="/movies">the list of movies</a> or <a href="/admin.html">admin</a> it will make you log in and then drop you in the authenticated home page.
+</div>
+</body>
+</html>

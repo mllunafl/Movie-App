@@ -25,6 +25,37 @@ public class MovieController {
     MovieService movieService;
 
 
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/auth/home")
+    public String loggedinhome(Principal principal) {
+//        try {
+//            Optional<User> optional = userService.getUserWithAuthoritiesByLogin(principal.getName());
+//            System.out.println("\n!!!\n!!! "  + principal.getName());
+//            if (!optional.isPresent()) {
+//                System.out.println("!!! creating social user");
+//                userService.createSocialUser(principal.getName());
+//            }
+//            System.out.println("!!! user already exists");
+//        } catch(Exception e) {
+//            System.out.println("### " + e.getMessage());
+//        }
+        return "auth-home";
+    }
+
     @GetMapping("/movies/genre/{id}")
     public String moviesByGenre(@PathVariable("id") int id, Model model){
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);

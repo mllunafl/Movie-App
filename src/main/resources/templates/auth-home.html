@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Home for logged in users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Welcome Home</h1>
+
+Now you can go to see the <a href="/movies">list of movies</a>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    Since you are an admin you can go to the
+    <a href="/admin.html">admin page</a> directly
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+</body>
+</html>
