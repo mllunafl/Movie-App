@@ -2,6 +2,10 @@ package com.example.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DBMovie implements Serializable {
+public class DBMovie  {
 
     @JsonProperty("id")
     private int id;
@@ -158,7 +162,8 @@ public class DBMovie implements Serializable {
         return status;
     }
 
-//    public static void main(String[] args) {
+
+    //    public static void main(String[] args) {
 //        RestTemplate restTemplate = new RestTemplate();
 //
 //

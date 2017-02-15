@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.domain.Movie;
+import com.example.domain.Pager;
 import com.example.domain.enumeration.Genre;
 import com.example.domain.enumeration.Interest;
 import com.example.repository.MovieRepository;
@@ -8,9 +9,12 @@ import com.example.service.DBMovieService;
 import com.example.service.MovieService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -19,6 +23,11 @@ import java.util.List;
 
 @Controller
 public class MovieController {
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = { 5, 10, 20 };
+
     @Autowired
     DBMovieService dbMovieService;
     @Autowired
@@ -40,6 +49,39 @@ public class MovieController {
         model.addAttribute("movies", movies);
         model.addAttribute("title", "Popular Movies");
         return "movies2";
+    }
+
+    @GetMapping
+    public String popularMovies(@RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                @RequestParam(value = "page", required = false) Integer page) {
+        int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+        int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+        Page<Movie> movies = movieService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
+
+    }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView showPersonsPage(@RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                        @RequestParam(value = "page", required = false) Integer page) {
+        ModelAndView modelAndView = new ModelAndView("persons");
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+        Page<Person> persons = personService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
+
+        modelAndView.addObject("persons", persons);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
     }
 
     @GetMapping("/movies/TopRated")
