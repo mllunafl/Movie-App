@@ -1,42 +1,105 @@
 package com.example.controller;
 
 import com.example.domain.Movie;
+import com.example.domain.enumeration.Genre;
+import com.example.domain.enumeration.Interest;
+import com.example.repository.MovieRepository;
 import com.example.service.DBMovieService;
+import com.example.service.MovieService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @Controller
 public class MovieController {
+    @Autowired
+    DBMovieService dbMovieService;
+    @Autowired
+    MovieService movieService;
 
 
-    @PostMapping("/movies")
-    @ResponseBody
-    public String postMovies(Model model) {
-        System.out.println("hey we did it!!");
-        return "ok";
-    }
-
-	@GetMapping("/movies")
-    public String getAll(Model model) {
-	    DBMovieService dbMovieService = new DBMovieService();
-        List<Movie> movies = dbMovieService.getPopularDbMovie();
+    @GetMapping("/movies/genre/{id}")
+    public String moviesByGenre(@PathVariable("id") int id, Model model){
+        List<Movie> movies = dbMovieService.getMoviesByGenre(id);
         System.out.println(movies);
         model.addAttribute("movies", movies);
-        //model.addAttribute("image", movies.get(1).getPoster_url());
-        return "movies";
+        model.addAttribute("title", Genre.getGenre(id));
+        return "movies2";
+    }
+
+    @GetMapping("/movies/Popular")
+    public String popularMovies(Model model){
+        List<Movie> movies = dbMovieService.getPopularDbMovie();
+        model.addAttribute("movies", movies);
+        model.addAttribute("title", "Popular Movies");
+        return "movies2";
+    }
+
+    @GetMapping("/movies/TopRated")
+    public String topRatedMovies(Model model){
+        List<Movie> movies = dbMovieService.getTopRatedMovies();
+        model.addAttribute("movies", movies);
+        model.addAttribute("title", "Top Rated Movies");
+        return "movies2";
+    }
+
+    @GetMapping("/movies/Upcoming")
+    public String upcomingMovies(Model model){
+        List<Movie> movies = dbMovieService.getUpcomingMovies();
+        model.addAttribute("movies", movies);
+        model.addAttribute("title", "Upcoming Movies");
+        return "movies2";
+    }
+
+    @GetMapping("/movies/NowPlaying")
+    public String nowPlayingMovies(Model model){
+        List<Movie> movies = dbMovieService.getNowPlayingMovies();
+        model.addAttribute("movies", movies);
+        model.addAttribute("title", "Now Playing Movies");
+        return "movies2";
+    }
+
+    @GetMapping("/movies")
+    public String getAll(Model model, Principal principal) {
+        List<Movie> movies = dbMovieService.getPopularDbMovie().subList(0,4);
+        System.out.println(movies);
+        model.addAttribute("movies", movies);
+
+//        if (principal == null) {
+//            model.addAttribute("userId", null);
+//        } else {
+//            model.addAttribute("userId", principal.getName());
+//        }
+//        return "movies";
+//    }
+//
+//    @PostMapping("/movies/interest")
+//    @ResponseBody
+//    public String changeInterest(Model model, Principal principal,
+//                                 @RequestParam(value = "interest", required = true) String interest,
+//                                 @RequestParam(value = "movieId", required = true) Integer movieId,
+//                                 @RequestParam(value = "username", required = true) String username
+//    ) {
+//
+//        System.out.println("username=" + username);
+//        Movie movie = dbMovieService.getDbMovie(movieId);
+//        movie.setInterest(Interest.valueOf(interest));
+//        movieService.save(movie);
+//        //System.out.println(movieService.findAll());
+
+        return "homepage";
     }
 
     @GetMapping("/movies/login")
     public String getLogin(Model model) {
-	    return "login";
+        return "login";
     }
 }
 

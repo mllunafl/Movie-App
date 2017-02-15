@@ -31,6 +31,10 @@ public class Movie_wishlist implements Serializable {
                inverseJoinColumns = @JoinColumn(name="movies_id", referencedColumnName="id"))
     private Set<Movie> movies = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -75,6 +79,19 @@ public class Movie_wishlist implements Serializable {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Movie_wishlist user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

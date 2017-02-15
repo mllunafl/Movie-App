@@ -3,6 +3,7 @@ package com.example.web.rest;
 import com.example.SandboxApp;
 
 import com.example.domain.Movie_wishlist;
+import com.example.domain.User;
 import com.example.repository.Movie_wishlistRepository;
 import com.example.service.Movie_wishlistService;
 
@@ -77,6 +78,11 @@ public class Movie_wishlistResourceIntTest {
     public static Movie_wishlist createEntity(EntityManager em) {
         Movie_wishlist movie_wishlist = new Movie_wishlist()
                 .name(DEFAULT_NAME);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        movie_wishlist.setUser(user);
         return movie_wishlist;
     }
 

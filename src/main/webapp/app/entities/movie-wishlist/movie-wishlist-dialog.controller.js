@@ -5,15 +5,16 @@
         .module('sandboxApp')
         .controller('Movie_wishlistDialogController', Movie_wishlistDialogController);
 
-    Movie_wishlistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Movie_wishlist', 'Movie'];
+    Movie_wishlistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Movie_wishlist', 'Movie', 'User'];
 
-    function Movie_wishlistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Movie_wishlist, Movie) {
+    function Movie_wishlistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Movie_wishlist, Movie, User) {
         var vm = this;
 
         vm.movie_wishlist = entity;
         vm.clear = clear;
         vm.save = save;
         vm.movies = Movie.query();
+        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

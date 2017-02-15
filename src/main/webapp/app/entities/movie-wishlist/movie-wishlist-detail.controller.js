@@ -5,9 +5,9 @@
         .module('sandboxApp')
         .controller('Movie_wishlistDetailController', Movie_wishlistDetailController);
 
-    Movie_wishlistDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Movie_wishlist', 'Movie'];
+    Movie_wishlistDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Movie_wishlist', 'Movie', 'User'];
 
-    function Movie_wishlistDetailController($scope, $rootScope, $stateParams, previousState, entity, Movie_wishlist, Movie) {
+    function Movie_wishlistDetailController($scope, $rootScope, $stateParams, previousState, entity, Movie_wishlist, Movie, User) {
         var vm = this;
 
         vm.movie_wishlist = entity;

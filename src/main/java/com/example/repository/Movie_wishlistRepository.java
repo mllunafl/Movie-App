@@ -13,6 +13,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface Movie_wishlistRepository extends JpaRepository<Movie_wishlist,Long> {
 
+    @Query("select movie_wishlist from Movie_wishlist movie_wishlist where movie_wishlist.user.login = ?#{principal.username}")
+    List<Movie_wishlist> findByUserIsCurrentUser();
+
     @Query("select distinct movie_wishlist from Movie_wishlist movie_wishlist left join fetch movie_wishlist.movies")
     List<Movie_wishlist> findAllWithEagerRelationships();
 

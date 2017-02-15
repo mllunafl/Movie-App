@@ -19,5 +19,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="movie"/>
         
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="movie_wishlist"
+                                 constraintName="fk_movie_wishlist_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
     </changeSet>
 </databaseChangeLog>

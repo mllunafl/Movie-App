@@ -21,6 +21,7 @@
                     <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="sandboxApp.movie_wishlist.name">Name</span></th>
                     <th><span data-translate="sandboxApp.movie_wishlist.movie">Movie</span></th>
+                    <th><span data-translate="sandboxApp.movie_wishlist.user">User</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,6 +33,9 @@
                         <span ng-repeat="movie in movie_wishlist.movies">
                             <a class="form-control-static" ui-sref="movie-detail({id: movie.id})">{{movie.id}}</a>{{$last ? '' : ', '}}
                         </span>
+                    </td>
+                    <td>
+                        {{movie_wishlist.user.login}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

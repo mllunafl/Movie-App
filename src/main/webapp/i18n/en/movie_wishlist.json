@@ -17,7 +17,8 @@
                 "title": "Movie Wishlist"
             },
             "name": "Name",
-            "movie": "Movie"
+            "movie": "Movie",
+            "user": "User"
         }
     }
 }

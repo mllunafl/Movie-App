@@ -1,0 +1,5 @@
+all the todo!!!!
+
+
+1) so post to database
+2) when page loads check what is in database and set value in thymeleaf so that is shows when they have already set it!!!

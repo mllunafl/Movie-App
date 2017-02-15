@@ -103,18 +103,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
+//            .csrf()
+//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//        .and()
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling()
             .authenticationEntryPoint(http401UnauthorizedEntryPoint())
-        .and()
+            .and()
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
             .key(jHipsterProperties.getSecurity().getRememberMe().getKey())
-        .and()
+            .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")
             .successHandler(ajaxAuthenticationSuccessHandler())
@@ -122,16 +122,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .usernameParameter("j_username")
             .passwordParameter("j_password")
             .permitAll()
-        .and()
+            .and()
             .logout()
             .logoutUrl("/api/logout")
             .logoutSuccessHandler(ajaxLogoutSuccessHandler())
             .permitAll()
-        .and()
+            .and()
             .headers()
             .frameOptions()
             .disable()
-        .and()
+            .and()
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
@@ -143,7 +143,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/v2/api-docs/**").permitAll()
             .antMatchers("/swagger-resources/configuration/ui").permitAll()
-            .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN);
+            .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/movies/interest").permitAll()
+            .and()
+            .csrf().disable();
 
     }
 

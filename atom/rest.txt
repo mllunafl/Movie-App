@@ -19,6 +19,12 @@ https://api.themoviedb.org/3/movie/550?api_key=f3d19e01363ab38b737c12cd2e9b704c
 https://api.themoviedb.org/3/movie/297761?api_key=f3d19e01363ab38b737c12cd2e9b704c&language=en-US
 
 
+
+with_genres
+
+
+
+
 {"adult":false,
 "backdrop_path":"/wSJPjqp2AZWQ6REaqkMuXsCIs64.jpg",
 "belongs_to_collection":null,
@@ -47,23 +53,78 @@ https://api.themoviedb.org/3/movie/297761?api_key=f3d19e01363ab38b737c12cd2e9b70
 "vote_count":6254}
 
 
-[The Secret Life of Pets - 2016-06-18 - 328111
-Suicide Squad - 2016-08-02 - 297761
-Finding Dory - 2016-06-16 - 127380,
-Jurassic World - 2015-06-09 - 135397,
-Arrival - 2016-11-10 - 329865,
-Split - 2017-01-19 - 381288,
-Rings - 2017-02-01 - 14564,
-Miss Peregrine's Home for Peculiar Children - 2016-09-28 - 283366,
-xXx: Return of Xander Cage - 2017-01-13 - 47971,
-Interstellar - 2014-11-05 - 157336,
-La La Land - 2016-12-01 - 313369,
-Mad Max: Fury Road - 2015-05-13 - 76341,
-Fantastic Beasts and Where to Find Them - 2016-11-16 - 259316,
-Hacksaw Ridge - 2016-11-04 - 324786,
-Captain America: Civil War - 2016-04-27 - 271110,
-Underworld: Blood Wars - 2016-12-01 - 346672,
-Assassin's Creed - 2016-12-21 - 121856,
-Passengers - 2016-12-21 - 274870,
-The Girl on the Train - 2016-10-05 - 346685,
-John Wick - 2014-10-22 - 245891]
+
+  "genres":
+      "id": 28,
+      "name": "Action"
+
+      "id": 12,
+      "name": "Adventure"
+
+      "id": 16,
+      "name": "Animation"
+
+      "id": 35,
+      "name": "Comedy"
+  
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
+}
