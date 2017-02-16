@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
@@ -19,10 +20,25 @@
 
 <div class="container">
 
-    <form class="form-signin">
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+
+    <form th:action="@{/login}" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="autofocus"></input>
+
+        <div>
+            With Facebook: <a href="/login/facebook">click here</a>
+        </div>
+        <div>
+            With Github: <a href="/login/github">click here</a>
+        </div>
+
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="User Name" required="true" autofocus="autofocus"></input>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true"></input>
         <div class="checkbox">
@@ -38,3 +54,31 @@
 
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+      <!--xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+    <!--<title>Login</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:if="${param.error}">-->
+    <!--Invalid username and password.-->
+<!--</div>-->
+<!--<div th:if="${param.logout}">-->
+    <!--You have been logged out.-->
+<!--</div>-->
+<!--<div>-->
+    <!--With Facebook: <a href="/login/facebook">click here</a>-->
+<!--</div>-->
+<!--<div>-->
+    <!--With Github: <a href="/login/github">click here</a>-->
+<!--</div>-->
+<!--<form th:action="@{/login}" method="post">-->
+    <!--<div><label> User Name : <input type="text" name="username"/> </label></div>-->
+    <!--<div><label> Password: <input type="password" name="password"/> </label></div>-->
+    <!--<div><input type="submit" value="Sign In"/></div>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
