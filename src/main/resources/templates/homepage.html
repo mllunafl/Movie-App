@@ -1,5 +1,6 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
@@ -28,36 +29,42 @@
 
 <div class="container">
 
-    <!-- The justified navigation menu is meant for single line per list item.
-         Multiple lines will require custom code not provided by Bootstrap. -->
     <div class="masthead">
         <h3 class="text-muted">Feelin' Movie</h3>
-        <nav>
-            <ul class="nav nav-justified">
-                <li class="active"><a th:href="@{'/movies'}" href="#">Home</a></li>
-                <li><a href="#">Other</a></li>
-                <li><a href="#">Services</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Movies
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" th:href="@{'/movies/Popular'}" href="#">Popular</a>
-                        <a class="dropdown-item" th:href="@{'/movies/TopRated'}" href="#">Top Rated</a>
-                        <a class="dropdown-item" th:href="@{'/movies/Upcoming'}" href="#">Upcoming</a>
-                        <a class="dropdown-item" th:href="@{'/movies/NowPlaying'}" href="#">Now Playing</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Genre
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}" th:value="${genre}" th:text="${genre}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
-                    </div>
-                </li>
-                <li><a href="#">Sign In</a></li>
-            </ul>
+
+        <nav class="navbar navbar-light bg-faded rounded mb-3">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-toggleable-md" id="navbarCollapse">
+                <ul class="nav navbar-nav text-md-center justify-content-md-between">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" th:href="@{'/movies/Popular'}" href="#">Popular</a>
+                            <a class="dropdown-item" th:href="@{'/movies/TopRated'}" href="#">Top Rated</a>
+                            <a class="dropdown-item" th:href="@{'/movies/Upcoming'}" href="#">Upcoming</a>
+                            <a class="dropdown-item" th:href="@{'/movies/NowPlaying'}" href="#">Now Playing</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}" th:value="${genre}" th:text="${genre}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
+                        </div>
+                    </li>
+                    <li sec:authorize="isAnonymous()"><a href="/login">Sign In</a></li>
+                </ul>
+            </div>
         </nav>
     </div>
 
@@ -70,10 +77,20 @@
 
     <!-- Example row of columns -->
     <div>
-        <h3>Popular Movies</h3>
+        <h3>Top Rated Movies</h3>
     </div>
     <div class="row">
-        <div class="col-lg-3" th:each="movie: ${movies}" >
+        <div class="col-lg-3" th:each="movie: ${topmovies}" >
+            <img class="poster" th:src="${movie.poster_url}" />
+            <h6 th:text="${movie.title}" ></h6>
+        </div>
+    </div>
+
+    <div>
+        <h3>Upcoming Movies</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-3" th:each="movie: ${upmovies}" >
             <img class="poster" th:src="${movie.poster_url}" />
             <h6 th:text="${movie.title}" ></h6>
         </div>
@@ -81,14 +98,22 @@
 
     <!-- Site footer -->
     <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; Company 2017</p>
     </footer>
 
 </div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="app/bootstrap.min.js"></script>
 <script src="app/dropdown.js"></script>
 <script src="app/movies.js"></script>
+
 </body>
 </html>

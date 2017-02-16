@@ -105,9 +105,27 @@ public class MovieController {
 
     @GetMapping("/movies")
     public String getAll(Model model, Principal principal) {
-        List<Movie> movies = dbMovieService.getPopularDbMovie().subList(0,4);
+        List<Movie> movies = dbMovieService.getTopRatedMovies().subList(0,4);
+        List<Movie> movieList = dbMovieService.getUpcomingMovies().subList(0,4);
         System.out.println(movies);
-        model.addAttribute("movies", movies);
+        model.addAttribute("topmovies", movies);
+        model.addAttribute("upmovies", movieList);
+        return "homepage";
+    }
+
+    @GetMapping("/movies/login")
+    public String getLogin(Model model) {
+        return "login";
+    }
+
+    public void getUser(Model model, Principal principal) {
+        if (principal == null) {
+            model.addAttribute("userId", null);
+        } else {
+            model.addAttribute("userId", principal.getName());
+        }
+    }
+}
 
 //        if (principal == null) {
 //            model.addAttribute("userId", null);
@@ -130,21 +148,3 @@ public class MovieController {
 //        movie.setInterest(Interest.valueOf(interest));
 //        movieService.save(movie);
 //        //System.out.println(movieService.findAll());
-
-        return "homepage";
-    }
-
-    @GetMapping("/movies/login")
-    public String getLogin(Model model) {
-        return "login";
-    }
-
-    public void getUser(Model model, Principal principal) {
-        if (principal == null) {
-            model.addAttribute("userId", null);
-        } else {
-            model.addAttribute("userId", principal.getName());
-        }
-    }
-}
-
