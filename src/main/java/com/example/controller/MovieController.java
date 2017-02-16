@@ -8,6 +8,7 @@ import com.example.service.DBMovieService;
 import com.example.service.MovieService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,8 +58,9 @@ public class MovieController {
     }
 
     @GetMapping("/movies/genre/{id}")
-    public String moviesByGenre(@PathVariable("id") int id, Model model){
+    public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal){
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);
+        getUser(model, principal);
         System.out.println(movies);
         model.addAttribute("movies", movies);
         model.addAttribute("title", Genre.getGenre(id));
@@ -66,32 +68,36 @@ public class MovieController {
     }
 
     @GetMapping("/movies/Popular")
-    public String popularMovies(Model model){
+    public String popularMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getPopularDbMovie();
+        getUser(model, principal);
         model.addAttribute("movies", movies);
         model.addAttribute("title", "Popular Movies");
         return "movies2";
     }
 
     @GetMapping("/movies/TopRated")
-    public String topRatedMovies(Model model){
+    public String topRatedMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getTopRatedMovies();
+        getUser(model, principal);
         model.addAttribute("movies", movies);
         model.addAttribute("title", "Top Rated Movies");
         return "movies2";
     }
 
     @GetMapping("/movies/Upcoming")
-    public String upcomingMovies(Model model){
+    public String upcomingMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getUpcomingMovies();
+        getUser(model, principal);
         model.addAttribute("movies", movies);
         model.addAttribute("title", "Upcoming Movies");
         return "movies2";
     }
 
     @GetMapping("/movies/NowPlaying")
-    public String nowPlayingMovies(Model model){
+    public String nowPlayingMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getNowPlayingMovies();
+        getUser(model, principal);
         model.addAttribute("movies", movies);
         model.addAttribute("title", "Now Playing Movies");
         return "movies2";
@@ -131,6 +137,14 @@ public class MovieController {
     @GetMapping("/movies/login")
     public String getLogin(Model model) {
         return "login";
+    }
+
+    public void getUser(Model model, Principal principal) {
+        if (principal == null) {
+            model.addAttribute("userId", null);
+        } else {
+            model.addAttribute("userId", principal.getName());
+        }
     }
 }
 
