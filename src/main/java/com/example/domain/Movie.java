@@ -146,22 +146,17 @@ public class Movie implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Movie movie = (Movie) o;
-        if (movie.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, movie.id);
+
+        return dbmovieId != null ? dbmovieId.equals(movie.dbmovieId) : movie.dbmovieId == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return dbmovieId != null ? dbmovieId.hashCode() : 0;
     }
 
     @Override

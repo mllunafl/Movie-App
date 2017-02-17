@@ -1,11 +1,8 @@
 package com.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -21,16 +18,11 @@ public class MovieWatchlist implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dbmovieId")
+    @Column(name = "dbmovie_id")
     private Integer dbmovieId;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private User user;
-
-    @OneToMany(mappedBy = "movieWatchlist")
-    @JsonIgnore
-    private Set<Movie> movies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -64,31 +56,6 @@ public class MovieWatchlist implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public MovieWatchlist movies(Set<Movie> movies) {
-        this.movies = movies;
-        return this;
-    }
-
-    public MovieWatchlist addMovie(Movie movie) {
-        this.movies.add(movie);
-        movie.setMovieWatchlist(this);
-        return this;
-    }
-
-    public MovieWatchlist removeMovie(Movie movie) {
-        this.movies.remove(movie);
-        movie.setMovieWatchlist(null);
-        return this;
-    }
-
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
     }
 
     @Override

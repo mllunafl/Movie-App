@@ -27,9 +27,11 @@
             <column name="dbmovie_id" type="integer">
                 <constraints nullable="true" />
             </column>
+
             <column name="user_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+                <constraints nullable="true" />
             </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

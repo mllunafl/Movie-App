@@ -1,11 +1,8 @@
 package com.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -21,15 +18,10 @@ public class MovieWishlist implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dbmovieId")
+    @Column(name = "dbmovie_id")
     private Integer dbmovieId;
 
-    @OneToMany(mappedBy = "movieWishlist")
-    @JsonIgnore
-    private Set<Movie> movies = new HashSet<>();
-
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private User user;
 
     public Long getId() {
@@ -51,31 +43,6 @@ public class MovieWishlist implements Serializable {
 
     public void setDbmovieId(Integer dbmovieId) {
         this.dbmovieId = dbmovieId;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public MovieWishlist movies(Set<Movie> movies) {
-        this.movies = movies;
-        return this;
-    }
-
-    public MovieWishlist addMovie(Movie movie) {
-        this.movies.add(movie);
-        movie.setMovieWishlist(this);
-        return this;
-    }
-
-    public MovieWishlist removeMovie(Movie movie) {
-        this.movies.remove(movie);
-        movie.setMovieWishlist(null);
-        return this;
-    }
-
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
     }
 
     public User getUser() {

@@ -86,7 +86,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a
-                            th:value="':' + ${interest} + ':' + ${movie.dbmovie_id} + ':' + ${userId} + ':'"
+                            th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"
                             th:text="${interest}" href="#">xxx</a></li>
                     </ul>
                 </div>

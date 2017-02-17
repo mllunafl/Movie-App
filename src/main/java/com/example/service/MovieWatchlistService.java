@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.domain.MovieWatchlist;
+import com.example.domain.User;
 import com.example.repository.MovieWatchlistRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,16 @@ public class MovieWatchlistService {
         return result;
     }
 
+
+    @Transactional(readOnly = true)
+    public List<MovieWatchlist> findByUser() {
+        log.debug("Request to get all MovieWatchlists");
+        List<MovieWatchlist> result = movieWatchlistRepository.findByUserIsCurrentUser();
+
+        return result;
+    }
+
+
     /**
      *  Get all the movieWatchlists.
      *
@@ -61,6 +72,8 @@ public class MovieWatchlistService {
         MovieWatchlist movieWatchlist = movieWatchlistRepository.findOne(id);
         return movieWatchlist;
     }
+
+
 
     /**
      *  Delete the  movieWatchlist by id.

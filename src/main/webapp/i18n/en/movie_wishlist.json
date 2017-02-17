@@ -17,7 +17,6 @@
                 "title": "Movie Wishlist"
             },
             "dbmovie_id": "Dbmovie Id",
-            "movie": "Movie",
             "user": "User"
         }
     }

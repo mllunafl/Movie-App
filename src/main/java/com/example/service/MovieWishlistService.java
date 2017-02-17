@@ -49,6 +49,17 @@ public class MovieWishlistService {
         return result;
     }
 
+
+    @Transactional(readOnly = true)
+    public List<MovieWishlist> findByUser() {
+        log.debug("Request to get all MovieWishlists");
+        List<MovieWishlist> result = movieWishlistRepository.findByUserIsCurrentUser();
+
+        return result;
+    }
+
+
+
     /**
      *  Get one movieWishlist by id.
      *

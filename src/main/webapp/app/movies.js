@@ -5,6 +5,7 @@ $(document).ready(function() {
        console.log('movie id =' + split[2])
        console.log('user id =' + split[3])
 
+
        if (split[3] == 'null') {
            alert("you must log in first")
            return
@@ -12,5 +13,8 @@ $(document).ready(function() {
 
           $.post( window.location.href + '/interest',
                { interest: split[1], movieId: split[2], username: split[3] });
+
+
+
    })
 })

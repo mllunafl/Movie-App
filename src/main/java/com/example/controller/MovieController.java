@@ -2,12 +2,12 @@ package com.example.controller;
 
 import com.example.domain.Movie;
 import com.example.domain.MovieWatchlist;
+import com.example.domain.MovieWishlist;
+import com.example.domain.User;
 import com.example.domain.enumeration.Genre;
 import com.example.domain.enumeration.Interest;
 import com.example.repository.MovieRepository;
-import com.example.service.DBMovieService;
-import com.example.service.MovieService;
-import com.example.service.MovieWatchlistService;
+import com.example.service.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MovieController {
@@ -28,6 +29,10 @@ public class MovieController {
     MovieService movieService;
     @Autowired
     MovieWatchlistService watchlistService;
+    @Autowired
+    MovieWishlistService wishlistService;
+    @Autowired
+    UserService userService;
 
 
     @GetMapping("/")
@@ -64,6 +69,25 @@ public class MovieController {
     @GetMapping("/movies/genre/{id}")
     public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal){
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);
+        List<MovieWishlist> wishListMovies = wishlistService.findByUser();
+        List<MovieWatchlist> watchListMovies = watchlistService.findByUser();
+        for (Movie movie : movies){
+            for(MovieWishlist movieWishlist : wishListMovies){
+                if (movie.getDbmovieId().equals(movieWishlist.getDbmovieId())){
+                    movie.setInterest(Interest.WANT_TO_SEE);
+                    break;
+                }
+            }
+        }
+
+        for (Movie movie : movies){
+            for(MovieWatchlist movieWatchlist : watchListMovies){
+                if (movie.getDbmovieId().equals(movieWatchlist.getDbmovieId())){
+                    movie.setInterest(Interest.SEEN_IT);
+                    break;
+                }
+            }
+        }
         getUser(model, principal);
         System.out.println(movies);
         model.addAttribute("movies", movies);
@@ -71,25 +95,46 @@ public class MovieController {
         return "movies2";
     }
 
-//    @PostMapping("/movies/genre/{id")
-//    @ResponseBody
-//    public String saveMovieItererst(Model model, Principal principal,
-//                                 @RequestParam(value = "interest", required = true) String interest,
-//                                 @RequestParam(value = "movieId", required = true) Integer movieId,
-//                                 @RequestParam(value = "username", required = true) String username
-//    ) {
-//        Movie movie = dbMovieService.getDbMovie(movieId);
-//        movie.setInterest(Interest.valueOf(interest));
-//        movieService.save(movie);
-//        if (Interest.valueOf(interest) == Interest.SEEN_IT){
-//            MovieWatchlist movieWatchlist = new MovieWatchlist();
-//            movieWatchlist.s
-//            watchlistService.
-//        }
-//        //System.out.println(movieService.findAll());
-//
-//
-//    }
+    @PostMapping("/movies/genre/{id}/interest")
+    @ResponseBody
+    public String saveMovieItererst(@PathVariable("id") int id, Model model, Principal principal,
+                                 @RequestParam(value = "interest", required = true) String interest,
+                                 @RequestParam(value = "movieId", required = true) Integer movieId,
+                                 @RequestParam(value = "username", required = true) String username
+    ) {
+        Movie movie = dbMovieService.getDbMovie(movieId);
+        movie.setInterest(Interest.valueOf(interest));
+        System.out.println("after saving movie " + movie);
+        System.out.println("did if find the one i saved?" + movieService.findAll());
+        if (Interest.valueOf(interest) == Interest.SEEN_IT){
+            MovieWatchlist movieWatchlist = new MovieWatchlist();
+            movieWatchlist.setDbmovieId(movie.getDbmovieId());
+            Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
+            if (optional.isPresent()){
+                User user = optional.get();
+                movieWatchlist.setUser(user);
+            }
+
+            watchlistService.save(movieWatchlist);
+        }
+        if (Interest.valueOf(interest) == Interest.WANT_TO_SEE){
+            MovieWishlist movieWishlist = new MovieWishlist();
+            movieWishlist.setDbmovieId(movie.getDbmovieId());
+            Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
+            if (optional.isPresent()){
+                User user = optional.get();
+                movieWishlist.setUser(user);
+            }
+
+            wishlistService.save(movieWishlist);
+        }
+        System.out.println(wishlistService.findAll());
+        List<Movie> movies = dbMovieService.getMoviesByGenre(id);
+        model.addAttribute("movies", movies);
+        model.addAttribute("title", Genre.getGenre(id));
+        return "movies2";
+    }
+
     @GetMapping("/movies/Popular")
     public String popularMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getPopularDbMovie();
