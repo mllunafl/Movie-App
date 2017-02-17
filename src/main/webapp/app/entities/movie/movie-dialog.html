@@ -26,14 +26,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="sandboxApp.movie.interest" for="field_interest">Interest</label>
-            <select class="form-control" name="interest" ng-model="vm.movie.interest" id="field_interest">
-                <option value="SEEN_IT" data-translate="sandboxApp.Interest.SEEN_IT">SEEN_IT</option>
-                <option value="WANT_TO_SEE" data-translate="sandboxApp.Interest.WANT_TO_SEE">WANT_TO_SEE</option>
-                <option value="NOT_INTERESTED" data-translate="sandboxApp.Interest.NOT_INTERESTED">NOT_INTERESTED</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label class="control-label" data-translate="sandboxApp.movie.dbmovie_id" for="field_dbmovie_id">Dbmovie Id</label>
             <input type="number" class="form-control" name="dbmovie_id" id="field_dbmovie_id"
                     ng-model="vm.movie.dbmovie_id"
@@ -61,7 +53,26 @@
                     ng-model="vm.movie.poster_url"
                     />
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.interest" for="field_interest">Interest</label>
+            <select class="form-control" name="interest" ng-model="vm.movie.interest" id="field_interest">
+                <option value="SEEN_IT" data-translate="sandboxApp.Interest.SEEN_IT">SEEN_IT</option>
+                <option value="WANT_TO_SEE" data-translate="sandboxApp.Interest.WANT_TO_SEE">WANT_TO_SEE</option>
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label data-translate="sandboxApp.movie.movie_wishlist" for="field_movie_wishlist">Movie Wishlist</label>
+            <select class="form-control" id="field_movie_wishlist" name="movie_wishlist" ng-model="vm.movie.movie_wishlist" ng-options="movie_wishlist as movie_wishlist.id for movie_wishlist in vm.movie_wishlists track by movie_wishlist.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="sandboxApp.movie.movie_watchlist" for="field_movie_watchlist">Movie Watchlist</label>
+            <select class="form-control" id="field_movie_watchlist" name="movie_watchlist" ng-model="vm.movie.movie_watchlist" ng-options="movie_watchlist as movie_watchlist.id for movie_watchlist in vm.movie_watchlists track by movie_watchlist.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

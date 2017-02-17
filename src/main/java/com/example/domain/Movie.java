@@ -1,12 +1,9 @@
 package com.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import com.example.domain.enumeration.Interest;
@@ -28,13 +25,9 @@ public class Movie implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "interest")
-    private Interest interest;
-
     @NotNull
     @Column(name = "dbmovie_id", nullable = false)
-    private Integer dbmovie_id;
+    private Integer dbmovieId;
 
     @Column(name = "poster_path")
     private String poster_path;
@@ -42,9 +35,15 @@ public class Movie implements Serializable {
     @Column(name = "poster_url")
     private String poster_url;
 
-    @ManyToMany(mappedBy = "movies")
-    @JsonIgnore
-    private Set<Movie_wishlist> movie_wishlists = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "interest")
+    private Interest interest;
+
+    @ManyToOne
+    private MovieWishlist movieWishlist;
+
+    @ManyToOne
+    private MovieWatchlist movieWatchlist;
 
     public Long getId() {
         return id;
@@ -67,30 +66,17 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public Interest getInterest() {
-        return interest;
+    public Integer getDbmovieId() {
+        return dbmovieId;
     }
 
-    public Movie interest(Interest interest) {
-        this.interest = interest;
+    public Movie dbmovieId(Integer dbmovieId) {
+        this.dbmovieId = dbmovieId;
         return this;
     }
 
-    public void setInterest(Interest interest) {
-        this.interest = interest;
-    }
-
-    public Integer getDbmovie_id() {
-        return dbmovie_id;
-    }
-
-    public Movie dbmovie_id(Integer dbmovie_id) {
-        this.dbmovie_id = dbmovie_id;
-        return this;
-    }
-
-    public void setDbmovie_id(Integer dbmovie_id) {
-        this.dbmovie_id = dbmovie_id;
+    public void setDbmovieId(Integer dbmovieId) {
+        this.dbmovieId = dbmovieId;
     }
 
     public String getPoster_path() {
@@ -119,29 +105,43 @@ public class Movie implements Serializable {
         this.poster_url = poster_url;
     }
 
-    public Set<Movie_wishlist> getMovie_wishlists() {
-        return movie_wishlists;
+    public Interest getInterest() {
+        return interest;
     }
 
-    public Movie movie_wishlists(Set<Movie_wishlist> movie_wishlists) {
-        this.movie_wishlists = movie_wishlists;
+    public Movie interest(Interest interest) {
+        this.interest = interest;
         return this;
     }
 
-    public Movie addMovie_wishlist(Movie_wishlist movie_wishlist) {
-        this.movie_wishlists.add(movie_wishlist);
-        movie_wishlist.getMovies().add(this);
+    public void setInterest(Interest interest) {
+        this.interest = interest;
+    }
+
+    public MovieWishlist getMovieWishlist() {
+        return movieWishlist;
+    }
+
+    public Movie movieWishlist(MovieWishlist movieWishlist) {
+        this.movieWishlist = movieWishlist;
         return this;
     }
 
-    public Movie removeMovie_wishlist(Movie_wishlist movie_wishlist) {
-        this.movie_wishlists.remove(movie_wishlist);
-        movie_wishlist.getMovies().remove(this);
+    public void setMovieWishlist(MovieWishlist movieWishlist) {
+        this.movieWishlist = movieWishlist;
+    }
+
+    public MovieWatchlist getMovieWatchlist() {
+        return movieWatchlist;
+    }
+
+    public Movie movieWatchlist(MovieWatchlist movieWatchlist) {
+        this.movieWatchlist = movieWatchlist;
         return this;
     }
 
-    public void setMovie_wishlists(Set<Movie_wishlist> movie_wishlists) {
-        this.movie_wishlists = movie_wishlists;
+    public void setMovieWatchlist(MovieWatchlist movieWatchlist) {
+        this.movieWatchlist = movieWatchlist;
     }
 
     @Override
@@ -169,10 +169,10 @@ public class Movie implements Serializable {
         return "Movie{" +
             "id=" + id +
             ", title='" + title + "'" +
-            ", interest='" + interest + "'" +
-            ", dbmovie_id='" + dbmovie_id + "'" +
+            ", dbmovieId='" + dbmovieId + "'" +
             ", poster_path='" + poster_path + "'" +
             ", poster_url='" + poster_url + "'" +
+            ", interest='" + interest + "'" +
             '}';
     }
 }

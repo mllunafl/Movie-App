@@ -8,10 +8,6 @@
         <dd>
             <span>{{vm.movie.title}}</span>
         </dd>
-        <dt><span data-translate="sandboxApp.movie.interest">Interest</span></dt>
-        <dd>
-            <span data-translate="{{'sandboxApp.Interest.' + vm.movie.interest}}">{{vm.movie.interest}}</span>
-        </dd>
         <dt><span data-translate="sandboxApp.movie.dbmovie_id">Dbmovie Id</span></dt>
         <dd>
             <span>{{vm.movie.dbmovie_id}}</span>
@@ -23,6 +19,18 @@
         <dt><span data-translate="sandboxApp.movie.poster_url">Poster Url</span></dt>
         <dd>
             <span>{{vm.movie.poster_url}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.interest">Interest</span></dt>
+        <dd>
+            <span data-translate="{{'sandboxApp.Interest.' + vm.movie.interest}}">{{vm.movie.interest}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.movie_wishlist">Movie Wishlist</span></dt>
+        <dd>
+            <a ui-sref="movie-wishlist-detail({id:vm.movie.movie_wishlist.id})">{{vm.movie.movie_wishlist.id}}</a>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.movie_watchlist">Movie Watchlist</span></dt>
+        <dd>
+            <a ui-sref="movie-watchlist-detail({id:vm.movie.movie_watchlist.id})">{{vm.movie.movie_watchlist.id}}</a>
         </dd>
     </dl>
 

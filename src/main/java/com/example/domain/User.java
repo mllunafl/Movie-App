@@ -11,9 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.time.ZonedDateTime;
 
 /**
@@ -90,6 +88,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private Set<PersistentToken> persistentTokens = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<MovieWishlist> movieWishlists = new ArrayList<>();
+
+    public List<MovieWishlist> getMovieWishlists() {
+        return movieWishlists;
+    }
+
+    public void setMovieWishlists(List<MovieWishlist> movieWishlists) {
+        this.movieWishlists = movieWishlists;
+    }
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<MovieWatchlist> movieWatchlists = new ArrayList<>();
+
+    public List<MovieWatchlist> getMovieWatchlists() {
+        return movieWatchlists;
+    }
+
+    public void setMovieWatchlists(List<MovieWatchlist> movieWatchlists) {
+        this.movieWatchlists = movieWatchlists;
+    }
 
     public Long getId() {
         return id;

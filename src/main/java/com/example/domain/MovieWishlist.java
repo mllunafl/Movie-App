@@ -1,19 +1,19 @@
 package com.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Movie_wishlist.
+ * A MovieWishlist.
  */
 @Entity
 @Table(name = "movie_wishlist")
-public class Movie_wishlist implements Serializable {
+public class MovieWishlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,18 +21,15 @@ public class Movie_wishlist implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "dbmovieId")
+    private Integer dbmovieId;
 
-    @ManyToMany
-    @JoinTable(name = "movie_wishlist_movie",
-               joinColumns = @JoinColumn(name="movie_wishlists_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="movies_id", referencedColumnName="id"))
+    @OneToMany(mappedBy = "movieWishlist")
+    @JsonIgnore
     private Set<Movie> movies = new HashSet<>();
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToOne
+    @JoinColumn(unique = true)
     private User user;
 
     public Long getId() {
@@ -43,37 +40,37 @@ public class Movie_wishlist implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getDbmovieId() {
+        return dbmovieId;
     }
 
-    public Movie_wishlist name(String name) {
-        this.name = name;
+    public MovieWishlist dbmovieId(Integer dbmovieId) {
+        this.dbmovieId = dbmovieId;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDbmovieId(Integer dbmovieId) {
+        this.dbmovieId = dbmovieId;
     }
 
     public Set<Movie> getMovies() {
         return movies;
     }
 
-    public Movie_wishlist movies(Set<Movie> movies) {
+    public MovieWishlist movies(Set<Movie> movies) {
         this.movies = movies;
         return this;
     }
 
-    public Movie_wishlist addMovie(Movie movie) {
+    public MovieWishlist addMovie(Movie movie) {
         this.movies.add(movie);
-        movie.getMovie_wishlists().add(this);
+        movie.setMovieWishlist(this);
         return this;
     }
 
-    public Movie_wishlist removeMovie(Movie movie) {
+    public MovieWishlist removeMovie(Movie movie) {
         this.movies.remove(movie);
-        movie.getMovie_wishlists().remove(this);
+        movie.setMovieWishlist(null);
         return this;
     }
 
@@ -85,7 +82,7 @@ public class Movie_wishlist implements Serializable {
         return user;
     }
 
-    public Movie_wishlist user(User user) {
+    public MovieWishlist user(User user) {
         this.user = user;
         return this;
     }
@@ -102,11 +99,11 @@ public class Movie_wishlist implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Movie_wishlist movie_wishlist = (Movie_wishlist) o;
-        if (movie_wishlist.id == null || id == null) {
+        MovieWishlist movieWishlist = (MovieWishlist) o;
+        if (movieWishlist.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, movie_wishlist.id);
+        return Objects.equals(id, movieWishlist.id);
     }
 
     @Override
@@ -116,9 +113,9 @@ public class Movie_wishlist implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie_wishlist{" +
+        return "MovieWishlist{" +
             "id=" + id +
-            ", name='" + name + "'" +
+            ", dbmovieId='" + dbmovieId + "'" +
             '}';
     }
 }

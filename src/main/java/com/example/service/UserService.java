@@ -193,14 +193,19 @@ public class UserService {
         });
     }
 
-    @Transactional(readOnly = true)    
+    @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+        Optional<User> optional = userRepository.findOneWithAuthoritiesByLogin(login);
+        if (optional.isPresent()){
+            optional.get().getMovieWishlists().size();
+            optional.get().getMovieWatchlists().size();
+        }
+        return optional;
     }
 
     @Transactional(readOnly = true)

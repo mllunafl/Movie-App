@@ -17,11 +17,12 @@
                 "title": "Movie"
             },
             "title": "Title",
-            "interest": "Interest",
             "dbmovie_id": "Dbmovie Id",
             "poster_path": "Poster Path",
             "poster_url": "Poster Url",
-            "movie_wishlist": "Movie Wishlist"
+            "interest": "Interest",
+            "movie_wishlist": "Movie Wishlist",
+            "movie_watchlist": "Movie Watchlist"
         }
     }
 }

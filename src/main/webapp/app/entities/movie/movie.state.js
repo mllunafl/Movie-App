@@ -107,10 +107,10 @@
                         entity: function () {
                             return {
                                 title: null,
-                                interest: null,
                                 dbmovie_id: null,
                                 poster_path: null,
                                 poster_url: null,
+                                interest: null,
                                 id: null
                             };
                         }

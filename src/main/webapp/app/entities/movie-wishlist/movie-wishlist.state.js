@@ -104,7 +104,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
+                                dbmovie_id: null,
                                 id: null
                             };
                         }

@@ -163,6 +163,7 @@ public class UserResource {
     @Timed
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
+        System.out.println("/n!!!!" + userService.getUserWithAuthoritiesByLogin(login).get().getMovieWishlists());
         return ResponseUtil.wrapOrNotFound(
             userService.getUserWithAuthoritiesByLogin(login)
                 .map(UserDTO::new));

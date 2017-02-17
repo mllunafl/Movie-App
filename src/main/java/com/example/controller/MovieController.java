@@ -1,11 +1,13 @@
 package com.example.controller;
 
 import com.example.domain.Movie;
+import com.example.domain.MovieWatchlist;
 import com.example.domain.enumeration.Genre;
 import com.example.domain.enumeration.Interest;
 import com.example.repository.MovieRepository;
 import com.example.service.DBMovieService;
 import com.example.service.MovieService;
+import com.example.service.MovieWatchlistService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
@@ -24,6 +26,8 @@ public class MovieController {
     DBMovieService dbMovieService;
     @Autowired
     MovieService movieService;
+    @Autowired
+    MovieWatchlistService watchlistService;
 
 
     @GetMapping("/")
@@ -67,6 +71,25 @@ public class MovieController {
         return "movies2";
     }
 
+//    @PostMapping("/movies/genre/{id")
+//    @ResponseBody
+//    public String saveMovieItererst(Model model, Principal principal,
+//                                 @RequestParam(value = "interest", required = true) String interest,
+//                                 @RequestParam(value = "movieId", required = true) Integer movieId,
+//                                 @RequestParam(value = "username", required = true) String username
+//    ) {
+//        Movie movie = dbMovieService.getDbMovie(movieId);
+//        movie.setInterest(Interest.valueOf(interest));
+//        movieService.save(movie);
+//        if (Interest.valueOf(interest) == Interest.SEEN_IT){
+//            MovieWatchlist movieWatchlist = new MovieWatchlist();
+//            movieWatchlist.s
+//            watchlistService.
+//        }
+//        //System.out.println(movieService.findAll());
+//
+//
+//    }
     @GetMapping("/movies/Popular")
     public String popularMovies(Model model, Principal principal){
         List<Movie> movies = dbMovieService.getPopularDbMovie();
@@ -116,6 +139,11 @@ public class MovieController {
     @GetMapping("/movies/login")
     public String getLogin(Model model) {
         return "login";
+    }
+
+
+    public void saveMovie(Model model, Principal principal){
+
     }
 
     public void getUser(Model model, Principal principal) {

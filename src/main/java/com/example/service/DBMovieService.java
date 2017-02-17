@@ -69,7 +69,7 @@ public class DBMovieService {
         DBMovie dbMovie = restTemplate.getForObject(url, DBMovie.class);
         Movie movie = new Movie();
         movie.setTitle(dbMovie.getOriginalTitle());
-        movie.setDbmovie_id(dbMovie.getId());
+        movie.setDbmovieId(dbMovie.getId());
         movie.setPoster_path(dbMovie.getPosterPath());
         movie.setPoster_url(getdbMovieImgUrl(movie));
         return movie;
@@ -92,7 +92,7 @@ public class DBMovieService {
             DBMovie dbMovie =it.next();
             movie1.setTitle(dbMovie.getOriginalTitle());
             movie1.setPoster_path(dbMovie.getPosterPath());
-            movie1.setDbmovie_id(dbMovie.getId());
+            movie1.setDbmovieId(dbMovie.getId());
             movie1.setPoster_url(getdbMovieImgUrl(movie1));
             //System.out.println(movie1);
             movies.add(movie1);

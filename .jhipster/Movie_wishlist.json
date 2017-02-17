@@ -4,18 +4,13 @@
         {
             "relationshipName": "movie",
             "otherEntityName": "movie",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "id",
-            "ownerSide": true,
+            "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "movie_wishlist"
         },
         {
             "relationshipName": "user",
             "otherEntityName": "user",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
+            "relationshipType": "one-to-one",
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "movie_wishlist"
@@ -23,11 +18,8 @@
     ],
     "fields": [
         {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "dbmovie_id",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20170213161108",

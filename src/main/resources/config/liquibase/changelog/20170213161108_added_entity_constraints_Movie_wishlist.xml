@@ -8,17 +8,6 @@
     -->
     <changeSet id="20170213161108-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="movie_wishlists_id"
-                                 baseTableName="movie_wishlist_movie"
-                                 constraintName="fk_movie_wishlist_movie_movie_wishlists_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="movie_wishlist"/>
-        <addForeignKeyConstraint baseColumnNames="movies_id"
-                                 baseTableName="movie_wishlist_movie"
-                                 constraintName="fk_movie_wishlist_movie_movies_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="movie"/>
-        
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="movie_wishlist"
                                  constraintName="fk_movie_wishlist_user_id"

@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -14,33 +14,17 @@
                     ng-model="vm.movie_wishlist.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="sandboxApp.movie_wishlist.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                    ng-model="vm.movie_wishlist.name"
-                    required/>
-            <div ng-show="editForm.name.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-                    This field is required.
-                </p>
-            </div>
+            <label class="control-label" data-translate="sandboxApp.movie_wishlist.dbmovie_id" for="field_dbmovie_id">Dbmovie Id</label>
+            <input type="number" class="form-control" name="dbmovie_id" id="field_dbmovie_id"
+                    ng-model="vm.movie_wishlist.dbmovie_id"
+                    />
         </div>
 
         <div class="form-group">
-            <label data-translate="sandboxApp.movie_wishlist.movie" for="field_movie">Movie</label>
-            <select class="form-control" id="field_movie" multiple name="movie" ng-model="vm.movie_wishlist.movies" ng-options="movie as movie.id for movie in vm.movies track by movie.id"></select>
-        </div>
-        <div class="form-group">
             <label data-translate="sandboxApp.movie_wishlist.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" ng-model="vm.movie_wishlist.user" ng-options="user as user.login for user in vm.users track by user.id" required>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.movie_wishlist.user" ng-options="user as user.login for user in vm.users track by user.id">
                 <option value=""></option>
             </select>
-        </div>
-        <div ng-show="editForm.user.$invalid">
-            <p class="help-block"
-                ng-show="editForm.user.$error.required" data-translate="entity.validation.required">
-                This field is required.
-            </p>
         </div>
     </div>
     <div class="modal-footer">

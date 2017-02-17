@@ -4,15 +4,9 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row jh-entity-details">
-        <dt><span data-translate="sandboxApp.movie_wishlist.name">Name</span></dt>
+        <dt><span data-translate="sandboxApp.movie_wishlist.dbmovie_id">Dbmovie Id</span></dt>
         <dd>
-            <span>{{vm.movie_wishlist.name}}</span>
-        </dd>
-        <dt><span data-translate="sandboxApp.movie_wishlist.movie">Movie</span></dt>
-        <dd>
-            <span ng-repeat="movie in vm.movie_wishlist.movies">
-                <a ui-sref="movie-detail({id: movie.id})">{{movie.id}}</a>{{$last ? '' : ', '}}
-            </span>
+            <span>{{vm.movie_wishlist.dbmovie_id}}</span>
         </dd>
         <dt><span data-translate="sandboxApp.movie_wishlist.user">User</span></dt>
         <dd>

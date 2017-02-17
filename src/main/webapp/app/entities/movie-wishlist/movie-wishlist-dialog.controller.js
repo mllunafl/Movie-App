@@ -5,9 +5,9 @@
         .module('sandboxApp')
         .controller('Movie_wishlistDialogController', Movie_wishlistDialogController);
 
-    Movie_wishlistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Movie_wishlist', 'Movie', 'User'];
+    Movie_wishlistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Movie_wishlist', 'Movie', 'User'];
 
-    function Movie_wishlistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Movie_wishlist, Movie, User) {
+    function Movie_wishlistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Movie_wishlist, Movie, User) {
         var vm = this;
 
         vm.movie_wishlist = entity;

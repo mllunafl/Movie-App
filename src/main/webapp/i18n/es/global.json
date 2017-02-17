@@ -9,6 +9,7 @@
                 "main": "Entidades",
                 "movie": "Movie",
                 "movieWishlist": "Movie Wishlist",
+                "movieWatchlist": "Movie Watchlist",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

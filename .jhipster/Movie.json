@@ -4,9 +4,14 @@
         {
             "relationshipName": "movie_wishlist",
             "otherEntityName": "movie_wishlist",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "movie"
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "movie_watchlist",
+            "otherEntityName": "movie_watchlist",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -16,12 +21,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "interest",
-            "fieldType": "Interest",
-            "fieldValues": "SEEN_IT,WANT_TO_SEE,NOT_INTERESTED",
-            "fieldValidateRules": []
         },
         {
             "fieldName": "dbmovie_id",
@@ -37,6 +36,11 @@
         {
             "fieldName": "poster_url",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "interest",
+            "fieldType": "Interest",
+            "fieldValues": "SEEN_IT,WANT_TO_SEE"
         }
     ],
     "changelogDate": "20170207220703",
