@@ -1,5 +1,8 @@
 package com.example.service;
 
+import com.example.api.DBMovie;
+import com.example.api.ResultsPage;
+import com.example.domain.Movie;
 import com.example.domain.MovieWishlist;
 import com.example.repository.MovieWishlistRepository;
 import org.slf4j.Logger;
@@ -7,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -81,5 +86,28 @@ public class MovieWishlistService {
     public void delete(Long id) {
         log.debug("Request to delete MovieWishlist : {}", id);
         movieWishlistRepository.delete(id);
+    }
+
+    public void deleteByDbid(int dbmovieId){
+        List<MovieWishlist> movieWishlists = movieWishlistRepository.findByUserIsCurrentUser();
+        for (MovieWishlist movieWishlist : movieWishlists){
+            if (dbmovieId == movieWishlist.getDbmovieId()){
+                delete(movieWishlist.getId());
+            }
+        }
+    }
+
+    public List<Movie> turnResultsToList(){
+        DBMovieService dbMovieService = new DBMovieService();
+        List<MovieWishlist> movieWishlists = this.findByUser();
+        List<Movie> movies = new ArrayList<>();
+
+        Iterator<MovieWishlist> it = movieWishlists.iterator();
+        while (it.hasNext()) {
+            MovieWishlist movieWishlist =it.next();
+            Movie movie1 = dbMovieService.getDbMovie(movieWishlist.getDbmovieId());
+            movies.add(movie1);
+        }
+        return movies;
     }
 }

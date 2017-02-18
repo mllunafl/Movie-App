@@ -16,5 +16,4 @@ public interface MovieWatchlistRepository extends JpaRepository<MovieWatchlist,L
     List<MovieWatchlist> findByUserIsCurrentUser();
 
 
-
 }

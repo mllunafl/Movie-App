@@ -1,6 +1,8 @@
 package com.example.service;
 
+import com.example.domain.Movie;
 import com.example.domain.MovieWatchlist;
+import com.example.domain.MovieWishlist;
 import com.example.domain.User;
 import com.example.repository.MovieWatchlistRepository;
 import org.slf4j.Logger;
@@ -8,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -83,5 +87,28 @@ public class MovieWatchlistService {
     public void delete(Long id) {
         log.debug("Request to delete MovieWatchlist : {}", id);
         movieWatchlistRepository.delete(id);
+    }
+
+    public void deleteByDbid(int dbmovieId){
+        List<MovieWatchlist> movieWatchlists = movieWatchlistRepository.findByUserIsCurrentUser();
+        for (MovieWatchlist movieWatchlist : movieWatchlists){
+            if (dbmovieId == movieWatchlist.getDbmovieId()){
+                delete(movieWatchlist.getId());
+            }
+        }
+    }
+
+    public List<Movie> turnResultsToList(){
+        DBMovieService dbMovieService = new DBMovieService();
+        List<MovieWatchlist> movieWatchlists = this.findByUser();
+        List<Movie> movies = new ArrayList<>();
+
+        Iterator<MovieWatchlist> it = movieWatchlists.iterator();
+        while (it.hasNext()) {
+            MovieWatchlist movieWatchlist =it.next();
+            Movie movie1 = dbMovieService.getDbMovie(movieWatchlist.getDbmovieId());
+            movies.add(movie1);
+        }
+        return movies;
     }
 }

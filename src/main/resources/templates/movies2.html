@@ -38,6 +38,14 @@
                 <li class="active"><a th:href="@{'/movies'}" href="#">Home</a></li>
 
                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" th:href="@{'/movies/SeenIt'}" href="#">Seen it</a>
+                        <a class="dropdown-item" th:href="@{'/movies/WanaSee'}" href="#">Wana See</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" th:href="@{'/movies/Popular'}" href="#">Popular</a>
@@ -49,10 +57,10 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}"
-                           th:value="${genre}" th:text="${genre}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
+                           th:value="${genre}" th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
                     </div>
                 </li>
                 <li><div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -83,7 +91,7 @@
                     <option th:value="':' + 'delete' + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'">&nbsp;</option>
                     <option th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"
                             th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"
-                            th:text="${interest}"
+                            th:text="${interest.name}"
                             th:selected="(${movie.interest} == ${interest})">
                         Options
                     </option>

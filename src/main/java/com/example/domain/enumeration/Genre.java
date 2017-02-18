@@ -4,24 +4,32 @@ package com.example.domain.enumeration;
  * Created by LunaFlores on 2/14/17.
  */
 public enum Genre {
-    ACTION(16),
-    COMEDY(35),
-    DRAMA(18),
-    FAMILY(10751),
-    HORROR(27),
-    ROMANCE(10749);
+    ACTION(28,"Action"),
+    COMEDY(35,"Comedy"),
+    DRAMA(18, "Drama"),
+    FAMILY(10751, "Family"),
+    HORROR(27, "Horror"),
+    ROMANCE(10749,"Romance");
 
 
     private final int id;
+    private final String name;
 
-    Genre(int id) {
+
+    Genre(int id, String name) {
         this.id = id;
+        this.name = name;
     }
 
 
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
 
 
     public static Genre getGenre(int id) {
