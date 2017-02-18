@@ -18,8 +18,8 @@
     <meta name="description" content=""></meta>
     <meta name="author" content=""></meta>
     <link rel="icon" href="../../favicon.ico"></link>
-    <link href="content/css/bootstrap.min.css" rel="stylesheet"></link>
-    <link href="content/css/homepage.css" rel="stylesheet"></link>
+    <link href="../../content/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="../../content/css/homepage.css" rel="stylesheet"></link>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <a class="dropdown-item" th:href="@{'/movies/popular'}" href="#">Popular</a>
                             <a class="dropdown-item" th:href="@{'/movies/toprated'}" href="#">Top Rated</a>
@@ -64,11 +64,11 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <a class="dropdown-item"
                                th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}" th:value="${genre}"
-                               th:text="${genre}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
+                               th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
                         </div>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">

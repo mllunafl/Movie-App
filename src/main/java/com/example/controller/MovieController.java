@@ -41,8 +41,13 @@ public class MovieController {
     }
 
     @GetMapping("/home")
-    public String home() {
-        return "home";
+    public String home(Model model) {
+        List<Movie> movies = dbMovieService.getTopRatedMovies().subList(0,4);
+        List<Movie> movieList = dbMovieService.getUpcomingMovies().subList(0,4);
+        System.out.println(movies);
+        model.addAttribute("topmovies", movies);
+        model.addAttribute("upmovies", movieList);
+        return "homepage";
     }
 
     @GetMapping("/login")
@@ -63,7 +68,7 @@ public class MovieController {
 //        } catch(Exception e) {
 //            System.out.println("### " + e.getMessage());
 //        }
-        return "auth-home";
+        return "homepage";
     }
 
     @GetMapping("/movies/genre/{id}")

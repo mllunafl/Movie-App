@@ -71,7 +71,7 @@ public class LoginHandler implements AuthenticationSuccessHandler, Authenticatio
         }
 
         if (isUser || isAdmin) {
-            return "/auth/home";
+            return "/home";
         } else {
             throw new IllegalStateException();
         }
