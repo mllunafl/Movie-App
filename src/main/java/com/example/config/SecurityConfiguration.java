@@ -107,7 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .csrf()
-            .ignoringAntMatchers("/logout", "/api/**", "/movies/genre/**");
+            .ignoringAntMatchers("/logout", "/api/**", "/movies/genre/**", "/movies/**");
         //@formatter:on
     }
 

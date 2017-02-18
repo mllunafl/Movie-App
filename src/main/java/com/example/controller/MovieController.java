@@ -47,7 +47,7 @@ public class MovieController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "login2";
     }
 
     @GetMapping("/auth/home")
@@ -84,6 +84,7 @@ public class MovieController {
                                  @RequestParam(value = "movieId", required = true) Integer movieId,
                                  @RequestParam(value = "username", required = true) String username
     ) {
+        System.out.println("\n\n In post for genre" + interest + movieId + username);
         Movie movie = dbMovieService.getDbMovie(movieId);
         this.postInterest(movie, interest, username);
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);
@@ -92,7 +93,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/SeenIt")
+    @GetMapping("/movies/seenit")
     public String seenItMovies(Model model, Principal principal){
         List<Movie> movieList  = watchlistService.turnResultsToList();
         List<Movie> movies = this.setInterest(movieList);
@@ -102,13 +103,14 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/SeenIt/interest")
+    @PostMapping("/movies/seenit/interest")
     @ResponseBody
-    public String saveMovieSeenItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMovieSeenItererst(Model model, Principal principal,
                                     @RequestParam(value = "interest", required = true) String interest,
                                     @RequestParam(value = "movieId", required = true) Integer movieId,
                                     @RequestParam(value = "username", required = true) String username
     ) {
+        System.out.println("\n\n In post for Seen It" + interest + movieId + username);
         Movie movie = dbMovieService.getDbMovie(movieId);
         this.postInterest(movie, interest, username);
         List<Movie> movies = watchlistService.turnResultsToList();
@@ -117,7 +119,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/WanaSee")
+    @GetMapping("/movies/wanasee")
     public String wanaSeeItMovies(Model model, Principal principal){
         List<Movie> movieList  = wishlistService.turnResultsToList();
         List<Movie> movies = this.setInterest(movieList);
@@ -127,9 +129,9 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/WanaSee/interest")
+    @PostMapping("/movies/wanasee/interest")
     @ResponseBody
-    public String saveMovieWanaItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMovieWanaItererst(Model model, Principal principal,
                                         @RequestParam(value = "interest", required = true) String interest,
                                         @RequestParam(value = "movieId", required = true) Integer movieId,
                                         @RequestParam(value = "username", required = true) String username
@@ -142,7 +144,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/Popular")
+    @GetMapping("/movies/popular")
     public String popularMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getPopularDbMovie();
         List<Movie> movies = this.setInterest(movieList);
@@ -152,9 +154,9 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/Popular/interest")
+    @PostMapping("/movies/popular/interest")
     @ResponseBody
-    public String saveMoviePopularItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMoviePopularItererst(Model model, Principal principal,
                                         @RequestParam(value = "interest", required = true) String interest,
                                         @RequestParam(value = "movieId", required = true) Integer movieId,
                                         @RequestParam(value = "username", required = true) String username
@@ -167,7 +169,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/TopRated")
+    @GetMapping("/movies/topRated")
     public String topRatedMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getTopRatedMovies();
         List<Movie> movies = this.setInterest(movieList);
@@ -177,9 +179,9 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/TopRated/interest")
+    @PostMapping("/movies/toprated/interest")
     @ResponseBody
-    public String saveMovieTopItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMovieTopItererst(Model model, Principal principal,
                                            @RequestParam(value = "interest", required = true) String interest,
                                            @RequestParam(value = "movieId", required = true) Integer movieId,
                                            @RequestParam(value = "username", required = true) String username
@@ -192,7 +194,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/Upcoming")
+    @GetMapping("/movies/upcoming")
     public String upcomingMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getUpcomingMovies();
         List<Movie> movies = this.setInterest(movieList);
@@ -202,9 +204,9 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/Upcoming/interest")
+    @PostMapping("/movies/upcoming/interest")
     @ResponseBody
-    public String saveMovieUpItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMovieUpItererst(Model model, Principal principal,
                                        @RequestParam(value = "interest", required = true) String interest,
                                        @RequestParam(value = "movieId", required = true) Integer movieId,
                                        @RequestParam(value = "username", required = true) String username
@@ -217,7 +219,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/NowPlaying")
+    @GetMapping("/movies/nowplaying")
     public String nowPlayingMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getNowPlayingMovies();
         List<Movie> movies = this.setInterest(movieList);
@@ -227,9 +229,9 @@ public class MovieController {
         return "movies2";
     }
 
-    @PostMapping("/movies/NowPlaying/interest")
+    @PostMapping("/movies/nowplaying/interest")
     @ResponseBody
-    public String saveMovieNowItererst(@PathVariable("id") int id, Model model, Principal principal,
+    public String saveMovieNowItererst(Model model, Principal principal,
                                       @RequestParam(value = "interest", required = true) String interest,
                                       @RequestParam(value = "movieId", required = true) Integer movieId,
                                       @RequestParam(value = "username", required = true) String username

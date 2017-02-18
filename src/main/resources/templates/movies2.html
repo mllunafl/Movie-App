@@ -19,10 +19,7 @@
     <meta name="author" content=""></meta>
     <link rel="icon" href="../../favicon.ico"></link>
     <link href="../../content/css/bootstrap.min.css" rel="stylesheet"></link>
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"></link>
     <link href="../../content/css/homepage.css" rel="stylesheet"></link>
-    <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 </head>
 
 <body>
@@ -33,40 +30,58 @@
          Multiple lines will require custom code not provided by Bootstrap. -->
     <div class="masthead">
         <h3 class="text-muted">Feelin' Movie</h3>
-        <nav>
-            <ul class="nav nav-justified">
-                <li class="active"><a th:href="@{'/movies'}" href="#">Home</a></li>
+        <nav class="navbar navbar-light bg-faded rounded mb-3">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-toggleable-md" id="navbarCollapse">
+                <ul class="nav navbar-nav text-md-center justify-content-md-between">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/movies}" href="#">Home <span
+                            class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" th:href="@{'/movies/seenit'}" href="#">Seen it</a>
+                            <a class="dropdown-item" th:href="@{'/movies/wanasee'}" href="#">Wana See</a>
+                        </div>
+                    </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" th:href="@{'/movies/SeenIt'}" href="#">Seen it</a>
-                        <a class="dropdown-item" th:href="@{'/movies/WanaSee'}" href="#">Wana See</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" th:href="@{'/movies/Popular'}" href="#">Popular</a>
-                        <a class="dropdown-item" th:href="@{'/movies/TopRated'}" href="#">Top Rated</a>
-                        <a class="dropdown-item" th:href="@{'/movies/Upcoming'}" href="#">Upcoming</a>
-                        <a class="dropdown-item" th:href="@{'/movies/NowPlaying'}" href="#">Now Playing</a>
-                    </div>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" th:href="@{'/movies/popular'}" href="#">Popular</a>
+                            <a class="dropdown-item" th:href="@{'/movies/toprated'}" href="#">Top Rated</a>
+                            <a class="dropdown-item" th:href="@{'/movies/upcoming'}" href="#">Upcoming</a>
+                            <a class="dropdown-item" th:href="@{'/movies/nowplaying'}" href="#">Now Playing</a>
+                        </div>
+                    </li>
 
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}"
-                           th:value="${genre}" th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
-                    </div>
-                </li>
-                <li><div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="/admin.html">Admin Page</a>
-                </div></li>
-            </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item"
+                               th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}"
+                               th:value="${genre}" th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
+                        </div>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" href="/login">Sign In</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/admin.html">Admin Page</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </div>
 
@@ -97,14 +112,14 @@
                     </option>
                 </select>
                 <!--<div class="btn-group">-->
-                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
-                        <!--<span data-bind="label"></span>&nbsp;<span class="caret"></span>-->
-                    <!--</button>-->
-                    <!--<ul class="dropdown-menu" role="menu">-->
-                        <!--<li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a-->
-                            <!--th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"-->
-                            <!--th:text="${interest}" href="#">xxx</a></li>-->
-                    <!--</ul>-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                <!--<span data-bind="label"></span>&nbsp;<span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu" role="menu">-->
+                <!--<li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a-->
+                <!--th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"-->
+                <!--th:text="${interest}" href="#">xxx</a></li>-->
+                <!--</ul>-->
                 <!--</div>-->
             </div>
         </div>
@@ -115,11 +130,38 @@
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 
+    <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4>Log Out <i class="fa fa-lock"></i></h4>
+                </div>
+                <div class="modal-body">
+                    <p><i class="fa fa-question-circle"></i> Are you sure you want to log-off? <br /></p>
+                    <div class="actionsBtns">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="submit"  class="btn btn-default btn-primary"  value="Sign Out" />
+                            <button class="btn btn-default" data-dismiss="modal" >Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="../../app/bootstrap.min.js"></script>
-<script src="../../app/dropdown.js"></script>
+<!--<script src="../../app/dropdown.js"></script>-->
 <script src="../../app/movies.js"></script>
 </body>
 <nav aria-label="Page navigation example">
