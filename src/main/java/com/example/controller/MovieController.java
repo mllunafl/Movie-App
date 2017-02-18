@@ -103,31 +103,36 @@ public class MovieController {
                                  @RequestParam(value = "username", required = true) String username
     ) {
         Movie movie = dbMovieService.getDbMovie(movieId);
-        movie.setInterest(Interest.valueOf(interest));
-        System.out.println("after saving movie " + movie);
-        System.out.println("did if find the one i saved?" + movieService.findAll());
-        if (Interest.valueOf(interest) == Interest.SEEN_IT){
-            MovieWatchlist movieWatchlist = new MovieWatchlist();
-            movieWatchlist.setDbmovieId(movie.getDbmovieId());
-            Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
-            if (optional.isPresent()){
-                User user = optional.get();
-                movieWatchlist.setUser(user);
-            }
+        if("delete".equals(interest)){
+            System.out.println("need to delete!!!!!");
+        } else {
+            movie.setInterest(Interest.valueOf(interest));
+            System.out.println("after saving movie " + movie);
+            System.out.println("did if find the one i saved?" + movieService.findAll());
+            if (Interest.valueOf(interest) == Interest.SEEN_IT){
+                MovieWatchlist movieWatchlist = new MovieWatchlist();
+                movieWatchlist.setDbmovieId(movie.getDbmovieId());
+                Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
+                if (optional.isPresent()){
+                    User user = optional.get();
+                    movieWatchlist.setUser(user);
+                }
 
-            watchlistService.save(movieWatchlist);
-        }
-        if (Interest.valueOf(interest) == Interest.WANT_TO_SEE){
-            MovieWishlist movieWishlist = new MovieWishlist();
-            movieWishlist.setDbmovieId(movie.getDbmovieId());
-            Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
-            if (optional.isPresent()){
-                User user = optional.get();
-                movieWishlist.setUser(user);
+                watchlistService.save(movieWatchlist);
             }
+            if (Interest.valueOf(interest) == Interest.WANT_TO_SEE){
+                MovieWishlist movieWishlist = new MovieWishlist();
+                movieWishlist.setDbmovieId(movie.getDbmovieId());
+                Optional<User>  optional = userService.getUserWithAuthoritiesByLogin(username);
+                if (optional.isPresent()){
+                    User user = optional.get();
+                    movieWishlist.setUser(user);
+                }
 
-            wishlistService.save(movieWishlist);
+                wishlistService.save(movieWishlist);
+            }
         }
+
         System.out.println(wishlistService.findAll());
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);
         model.addAttribute("movies", movies);

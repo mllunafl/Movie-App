@@ -80,7 +80,7 @@
                 <!--<img class="poster" th:text="src=${movie.posterUrl}" />-->
                 <h6 th:text="${movie.title}"></h6>
                 <select class="interesting">
-                    <option>&nbsp;</option>
+                    <option th:value="':' + 'delete' + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'">&nbsp;</option>
                     <option th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"
                             th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"
                             th:text="${interest}"

@@ -2,12 +2,8 @@ $(document).ready(function() {
 
 
    $(".interesting").change(function(event){
-       // alert(event.target.value)
-        var output
-        for (var property in event.target) {
-         output += property +  ': ' + event.target[property]+'\n ';
-        }
-       alert(output)
+
+
        var split = event.target.value.split(':');
        console.log('enum value =' + split[1])
        console.log('movie id =' + split[2])
