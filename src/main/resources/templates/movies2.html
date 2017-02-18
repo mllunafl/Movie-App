@@ -79,17 +79,25 @@
                 <img class="poster" th:src="${movie.poster_url}"/>
                 <!--<img class="poster" th:text="src=${movie.posterUrl}" />-->
                 <h6 th:text="${movie.title}"></h6>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span data-bind="label"></span>&nbsp;<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a
+                <select class="interesting">
+                    <option>&nbsp;</option>
+                    <option th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"
                             th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"
-                            th:text="${interest}" href="#">xxx</a></li>
-                    </ul>
-                </div>
+                            th:text="${interest}"
+                            th:selected="(${movie.interest} == ${interest})">
+                        Options
+                    </option>
+                </select>
+                <!--<div class="btn-group">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span data-bind="label"></span>&nbsp;<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu" role="menu">-->
+                        <!--<li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a-->
+                            <!--th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"-->
+                            <!--th:text="${interest}" href="#">xxx</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
