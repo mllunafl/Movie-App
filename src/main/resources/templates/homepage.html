@@ -44,7 +44,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -72,13 +72,13 @@
                         </div>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link" href="/login">Sign In</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" href="/admin.html">Admin Page</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -118,6 +118,43 @@
     <footer class="footer">
         <p>&copy; Company 2017</p>
     </footer>
+
+
+    <div class="modal" id="signinModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4>Sign In<i class="fa fa-lock"></i></h4>
+                </div>
+                <div class="modal-body">
+                    <p><i class="fa fa-question-circle"></i> Sign in to add movies to your list!<br /></p>
+                    <div class="actionsBtns">
+                        <form class="form-signin"  th:action="@{/login}" method="post">
+                            <label for="inputText" class="sr-only">Username</label>
+                            <input type="text" id="inputText" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus"></input>
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="required"></input>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="remember-me"> Remember me</input>
+                                </label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            <div>
+                                With Facebook: <a href="/login/facebook">click here</a>
+                            </div>
+                            <div>
+                                With Github: <a href="/login/github">click here</a>
+                            </div>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="btn btn-default" data-dismiss="modal" >Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">

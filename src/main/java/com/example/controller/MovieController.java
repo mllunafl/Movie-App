@@ -74,10 +74,13 @@ public class MovieController {
     @GetMapping("/movies/genre/{id}")
     public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getMoviesByGenre(id);
-        List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
-        System.out.println(movies);
-        model.addAttribute("movies", movies);
+        String user = getUser(model, principal);
+        if (null == user){
+            model.addAttribute("movies", movieList);
+        } else if(!"null".equals(user)) {
+            List<Movie> movies = this.setInterest(movieList);
+            model.addAttribute("movies", movies);
+        }
         model.addAttribute("title", Genre.getGenre(id));
         return "movies2";
     }
@@ -87,7 +90,7 @@ public class MovieController {
     public String saveMovieGenreItererst(@PathVariable("id") int id, Model model, Principal principal,
                                  @RequestParam(value = "interest", required = true) String interest,
                                  @RequestParam(value = "movieId", required = true) Integer movieId,
-                                 @RequestParam(value = "username", required = true) String username
+                                 @RequestParam(value = "username", required = false) String username
     ) {
         System.out.println("\n\n In post for genre" + interest + movieId + username);
         Movie movie = dbMovieService.getDbMovie(movieId);
@@ -102,7 +105,7 @@ public class MovieController {
     public String seenItMovies(Model model, Principal principal){
         List<Movie> movieList  = watchlistService.turnResultsToList();
         List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
+        String user = getUser(model, principal);
         model.addAttribute("movies", movies);
         model.addAttribute("title", "My 'Seen It' List");
         return "movies2";
@@ -152,9 +155,13 @@ public class MovieController {
     @GetMapping("/movies/popular")
     public String popularMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getPopularDbMovie();
-        List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
-        model.addAttribute("movies", movies);
+        String user = getUser(model, principal);
+        if (null == user){
+            model.addAttribute("movies", movieList);
+        } else if(!"null".equals(user)) {
+            List<Movie> movies = this.setInterest(movieList);
+            model.addAttribute("movies", movies);
+        }
         model.addAttribute("title", "Popular Movies");
         return "movies2";
     }
@@ -177,9 +184,13 @@ public class MovieController {
     @GetMapping("/movies/topRated")
     public String topRatedMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getTopRatedMovies();
-        List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
-        model.addAttribute("movies", movies);
+        String user = getUser(model, principal);
+        if (null == user){
+            model.addAttribute("movies", movieList);
+        } else if(!"null".equals(user)) {
+            List<Movie> movies = this.setInterest(movieList);
+            model.addAttribute("movies", movies);
+        }
         model.addAttribute("title", "Top Rated Movies");
         return "movies2";
     }
@@ -202,9 +213,13 @@ public class MovieController {
     @GetMapping("/movies/upcoming")
     public String upcomingMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getUpcomingMovies();
-        List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
-        model.addAttribute("movies", movies);
+        String user = getUser(model, principal);
+        if (null == user){
+            model.addAttribute("movies", movieList);
+        } else if(!"null".equals(user)) {
+            List<Movie> movies = this.setInterest(movieList);
+            model.addAttribute("movies", movies);
+        }
         model.addAttribute("title", "Upcoming Movies");
         return "movies2";
     }
@@ -227,9 +242,13 @@ public class MovieController {
     @GetMapping("/movies/nowplaying")
     public String nowPlayingMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getNowPlayingMovies();
-        List<Movie> movies = this.setInterest(movieList);
-        getUser(model, principal);
-        model.addAttribute("movies", movies);
+        String user = getUser(model, principal);
+        if (null == user){
+            model.addAttribute("movies", movieList);
+        } else if(!"null".equals(user)) {
+            List<Movie> movies = this.setInterest(movieList);
+            model.addAttribute("movies", movies);
+        }
         model.addAttribute("title", "Now Playing Movies");
         return "movies2";
     }
@@ -269,11 +288,13 @@ public class MovieController {
 
     }
 
-    public void getUser(Model model, Principal principal) {
+    public String getUser(Model model, Principal principal) {
         if (principal == null) {
             model.addAttribute("userId", null);
+            return null;
         } else {
             model.addAttribute("userId", principal.getName());
+            return principal.getName();
         }
     }
 
