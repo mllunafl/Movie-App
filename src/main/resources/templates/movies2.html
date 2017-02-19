@@ -41,15 +41,19 @@
                         <a class="nav-link" th:href="@{/movies}" href="#">Home <span
                             class="sr-only">(current)</span></a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" th:href="@{'/movies/seenit'}" href="#">Seen it</a>
-                            <a class="dropdown-item" th:href="@{'/movies/wanasee'}" href="#">Wana See</a>
+                            <a class="dropdown-item"  sec:authorize="isAuthenticated()" th:href="@{'/movies/seenit'}" href="#">Seen it</a>
+                            <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{'/movies/wanasee'}" href="#">Wana See</a>
+                            <a class="nav-link"  sec:authorize="isAnonymous()" href="#" data-toggle="modal" data-target="#signinModal">Sign in to see your list</a>
                         </div>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
@@ -60,25 +64,23 @@
                             <a class="dropdown-item" th:href="@{'/movies/nowplaying'}" href="#">Now Playing</a>
                         </div>
                     </li>
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <a class="dropdown-item"
-                               th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}"
-                               th:value="${genre}" th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
+                               th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}" th:value="${genre}"
+                               th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>
                         </div>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" href="/admin.html">Admin Page</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -111,20 +113,20 @@
                         Options
                     </option>
                 </select>
-                <select sec:authorize="isAnonymous()">
-                    <option sec:authorize="isAnonymous()" >&nbsp;</option>
-                    <option sec:authorize="isAnonymous()"><a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In to add to your list</a></option>
-                </select>
-                <!--<div class="btn-group">-->
-                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
-                <!--<span data-bind="label"></span>&nbsp;<span class="caret"></span>-->
-                <!--</button>-->
-                <!--<ul class="dropdown-menu" role="menu">-->
-                <!--<li th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"><a-->
-                <!--th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"-->
-                <!--th:text="${interest}" href="#">xxx</a></li>-->
-                <!--</ul>-->
-                <!--</div>-->
+                <!--<select sec:authorize="isAnonymous()">-->
+                    <!--<option sec:authorize="isAnonymous()" >&nbsp;</option>-->
+                    <!--<option sec:authorize="isAnonymous()"><a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In to add to your list</a></option>-->
+                <!--</select>-->
+                <div class="btn-group" sec:authorize="isAnonymous()">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span data-bind="label"></span>&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                <li >
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In to add to your list</a>
+                </li>
+                </ul>
+                </div>
             </div>
         </div>
     </div>
