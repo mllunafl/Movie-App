@@ -336,16 +336,17 @@ public class MovieController {
     }
 
     private void postInterest(Movie movie, String interest, String username) {
+        System.out.println("in post string username " + username);
         if("delete".equals(interest)){
             watchlistService.deleteByDbid(movie.getDbmovieId());
             wishlistService.deleteByDbid(movie.getDbmovieId());
-            System.out.println("need to delete!!!!!");
         } else if(Interest.SEEN_IT == Interest.valueOf(interest)) {
             wishlistService.deleteByDbid(movie.getDbmovieId());
             movie.setInterest(Interest.valueOf(interest));
             MovieWatchlist movieWatchlist = new MovieWatchlist();
             movieWatchlist.setDbmovieId(movie.getDbmovieId());
             Optional<User> optional = userService.getUserWithAuthoritiesByLogin(username);
+            System.out.println("in seen it in post optional " + optional);
             if (optional.isPresent()) {
                 User user = optional.get();
                 movieWatchlist.setUser(user);

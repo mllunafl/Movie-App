@@ -15,4 +15,7 @@ public interface MovieWishlistRepository extends JpaRepository<MovieWishlist,Lon
     @Query("select movieWishlist from MovieWishlist movieWishlist where movieWishlist.user.login = ?#{principal.username}")
     List<MovieWishlist> findByUserIsCurrentUser();
 
+    @Query("select movieWishlist from MovieWishlist movieWishlist where movieWishlist.user.login = ?#{principal}")
+    List<MovieWishlist> findBySocialUserIsCurrentUser();
+
 }

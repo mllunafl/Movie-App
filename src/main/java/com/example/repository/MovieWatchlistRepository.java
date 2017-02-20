@@ -1,7 +1,6 @@
 package com.example.repository;
 
 import com.example.domain.MovieWatchlist;
-
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -14,6 +13,9 @@ public interface MovieWatchlistRepository extends JpaRepository<MovieWatchlist,L
 
     @Query("select movieWatchlist from MovieWatchlist movieWatchlist where movieWatchlist.user.login = ?#{principal.username}")
     List<MovieWatchlist> findByUserIsCurrentUser();
+
+    @Query("select movieWatchlist from MovieWatchlist movieWatchlist where movieWatchlist.user.login = ?#{principal}")
+    List<MovieWatchlist> findBySocialUserIsCurrentUser();
 
 
 }

@@ -4,9 +4,11 @@ import com.example.api.DBMovie;
 import com.example.api.ResultsPage;
 import com.example.domain.Movie;
 import com.example.domain.MovieWishlist;
+import com.example.domain.User;
 import com.example.repository.MovieWishlistRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +44,9 @@ public class MovieWishlistService {
     }
 
     /**
-     *  Get all the movieWishlists.
+     * Get all the movieWishlists.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public List<MovieWishlist> findAll() {
@@ -55,21 +57,27 @@ public class MovieWishlistService {
     }
 
 
-    @Transactional(readOnly = true)
     public List<MovieWishlist> findByUser() {
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         log.debug("Request to get all MovieWishlists");
-        List<MovieWishlist> result = movieWishlistRepository.findByUserIsCurrentUser();
+        List<MovieWishlist> result;
+        if (obj instanceof User) {
+            System.out.println("finding by user");
+            result = movieWishlistRepository.findByUserIsCurrentUser();
+        } else {
+            System.out.println("finding by social user");
+            result = movieWishlistRepository.findBySocialUserIsCurrentUser();
+        }
 
         return result;
     }
 
 
-
     /**
-     *  Get one movieWishlist by id.
+     * Get one movieWishlist by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Transactional(readOnly = true)
     public MovieWishlist findOne(Long id) {
@@ -79,32 +87,40 @@ public class MovieWishlistService {
     }
 
     /**
-     *  Delete the  movieWishlist by id.
+     * Delete the  movieWishlist by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete MovieWishlist : {}", id);
         movieWishlistRepository.delete(id);
     }
 
-    public void deleteByDbid(int dbmovieId){
-        List<MovieWishlist> movieWishlists = movieWishlistRepository.findByUserIsCurrentUser();
-        for (MovieWishlist movieWishlist : movieWishlists){
-            if (dbmovieId == movieWishlist.getDbmovieId()){
+    public void deleteByDbid(int dbmovieId) {
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<MovieWishlist> movieWishlists = new ArrayList<>();
+        if (obj instanceof User) {
+            System.out.println("finding by user");
+            movieWishlists = movieWishlistRepository.findByUserIsCurrentUser();
+        } else {
+            System.out.println("finding by social user");
+            movieWishlists = movieWishlistRepository.findBySocialUserIsCurrentUser();
+        }
+        for (MovieWishlist movieWishlist : movieWishlists) {
+            if (dbmovieId == movieWishlist.getDbmovieId()) {
                 delete(movieWishlist.getId());
             }
         }
     }
 
-    public List<Movie> turnResultsToList(){
+    public List<Movie> turnResultsToList() {
         DBMovieService dbMovieService = new DBMovieService();
         List<MovieWishlist> movieWishlists = this.findByUser();
         List<Movie> movies = new ArrayList<>();
 
         Iterator<MovieWishlist> it = movieWishlists.iterator();
         while (it.hasNext()) {
-            MovieWishlist movieWishlist =it.next();
+            MovieWishlist movieWishlist = it.next();
             Movie movie1 = dbMovieService.getDbMovie(movieWishlist.getDbmovieId());
             movies.add(movie1);
         }

@@ -7,6 +7,7 @@ import com.example.domain.User;
 import com.example.repository.MovieWatchlistRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +43,17 @@ public class MovieWatchlistService {
     }
 
 
-    @Transactional(readOnly = true)
     public List<MovieWatchlist> findByUser() {
-        log.debug("Request to get all MovieWatchlists");
-        List<MovieWatchlist> result = movieWatchlistRepository.findByUserIsCurrentUser();
-
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.debug("Request to get all MovieWishlists");
+        List<MovieWatchlist> result;
+        if (obj instanceof User) {
+            System.out.println("finding by user");
+            result = movieWatchlistRepository.findByUserIsCurrentUser();
+        } else {
+            System.out.println("finding by social user");
+            result = movieWatchlistRepository.findBySocialUserIsCurrentUser();
+        }
 
         return result;
     }
@@ -90,8 +97,16 @@ public class MovieWatchlistService {
         movieWatchlistRepository.delete(id);
     }
 
-    public void deleteByDbid(int dbmovieId){
-        List<MovieWatchlist> movieWatchlists = movieWatchlistRepository.findByUserIsCurrentUser();
+    public void deleteByDbid(int dbmovieId) {
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<MovieWatchlist> movieWatchlists = new ArrayList<>();
+        if (obj instanceof User) {
+            System.out.println("finding by user");
+            movieWatchlists = movieWatchlistRepository.findByUserIsCurrentUser();
+        } else {
+            System.out.println("finding by social user");
+            movieWatchlists = movieWatchlistRepository.findBySocialUserIsCurrentUser();
+        }
         for (MovieWatchlist movieWatchlist : movieWatchlists){
             if (dbmovieId == movieWatchlist.getDbmovieId()){
                 delete(movieWatchlist.getId());
