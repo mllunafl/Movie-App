@@ -47,6 +47,7 @@ public class MovieWatchlistService {
         log.debug("Request to get all MovieWatchlists");
         List<MovieWatchlist> result = movieWatchlistRepository.findByUserIsCurrentUser();
 
+
         return result;
     }
 

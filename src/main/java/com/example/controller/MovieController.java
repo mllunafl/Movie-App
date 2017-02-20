@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,8 +37,17 @@ public class MovieController {
 
 
     @GetMapping("/")
-    public String root() {
-        return "redirect:/home";
+    public String root(HttpServletRequest request, Principal principal) {
+        String referer = request.getHeader("referer");
+        if (principal != null) {
+            System.out.println("this is the principle " +principal.getName());
+        }
+        if (referer != null && principal != null) {
+            this.addSocialUser(principal.getName());
+            return "redirect:/home";
+        } else {
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/home")
@@ -75,9 +85,13 @@ public class MovieController {
     public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getMoviesByGenre(id);
         String user = getUser(model, principal);
+        System.out.println("in get genre before if, principle" + principal.toString());
+        System.out.println("in get genre before if user is " + user);
         if (null == user){
             model.addAttribute("movies", movieList);
+            System.out.println("in get genre user == null" + user);
         } else if(!"null".equals(user)) {
+            System.out.println("in get genre user != null" + user);
             List<Movie> movies = this.setInterest(movieList);
             model.addAttribute("movies", movies);
         }
@@ -90,7 +104,7 @@ public class MovieController {
     public String saveMovieGenreItererst(@PathVariable("id") int id, Model model, Principal principal,
                                  @RequestParam(value = "interest", required = true) String interest,
                                  @RequestParam(value = "movieId", required = true) Integer movieId,
-                                 @RequestParam(value = "username", required = false) String username
+                                 @RequestParam(value = "username", required = true) String username
     ) {
         System.out.println("\n\n In post for genre" + interest + movieId + username);
         Movie movie = dbMovieService.getDbMovie(movieId);
@@ -353,6 +367,20 @@ public class MovieController {
             }
         }
     }
+
+    private void addSocialUser(String login) {
+        try {
+            Optional<User> optional = userService.getUserWithAuthoritiesByLogin(login);
+            System.out.println("\n!!!\n!!! "  + login);
+            if (!optional.isPresent()) {
+                System.out.println("!!! creating social user");
+                userService.createSocialUser(login);
+            }
+            System.out.println("!!! user already exists");
+        } catch(Exception e) {
+            System.out.println("### " + e.getMessage());
+        }
+    }
 }
 
 //        if (principal == null) {
@@ -376,3 +404,8 @@ public class MovieController {
 //        movie.setInterest(Interest.valueOf(interest));
 //        movieService.save(movie);
 //        //System.out.println(movieService.findAll());
+
+
+
+
+

@@ -85,6 +85,26 @@ public class UserService {
             });
     }
 
+
+    public User createSocialUser(String login) {
+
+        User newUser = new User();
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Set<Authority> authorities = new HashSet<>();
+        newUser.setLogin(login);
+        // new user gets initially a generated password
+        newUser.setLangKey("en");
+        // new user is not active
+        newUser.setActivated(false);
+        // new user gets registration key
+        newUser.setActivationKey(RandomUtil.generateActivationKey());
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
     public User createUser(String login, String password, String firstName, String lastName, String email,
         String imageUrl, String langKey) {
 

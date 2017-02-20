@@ -151,12 +151,12 @@ public class Movie implements Serializable {
 
         Movie movie = (Movie) o;
 
-        return dbmovieId != null ? dbmovieId.equals(movie.dbmovieId) : movie.dbmovieId == null;
+        return id != null ? id.equals(movie.id) : movie.id == null;
     }
 
     @Override
     public int hashCode() {
-        return dbmovieId != null ? dbmovieId.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
