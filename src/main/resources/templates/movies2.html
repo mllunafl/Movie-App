@@ -9,7 +9,6 @@
     <meta name="description" content=""></meta>
     <meta name="author" content=""></meta>
     <link rel="icon" href="../../favicon.ico"></link>
-
     <title>Home Page</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
@@ -38,7 +37,7 @@
             <div class="collapse navbar-toggleable-md" id="navbarCollapse">
                 <ul class="nav navbar-nav text-md-center justify-content-md-between">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/movies}" href="#">Home <span
+                        <a class="nav-link" th:href="@{/home}" href="#">Home <span
                             class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
@@ -159,6 +158,10 @@
                             <div>
                                 With Github: <a href="/login/github">click here</a>
                             </div>
+                            <div>
+                                With Google: <a href="/login/google">click here</a>
+                            </div>
+                            <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button class="btn btn-default" data-dismiss="modal" >Cancel</button>
                         </form>

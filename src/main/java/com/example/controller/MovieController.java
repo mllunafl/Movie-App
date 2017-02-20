@@ -35,9 +35,18 @@ public class MovieController {
     @Autowired
     UserService userService;
 
+    private static final String PAGE = "page";
+
 
     @GetMapping("/")
     public String root(HttpServletRequest request, Principal principal) {
+        String page = (String)request.getSession().getAttribute(PAGE);
+        if (page != null) {
+            request.getSession().removeAttribute(PAGE);
+            if ("popular".equals(page)) {
+                return "redirect:/movies/popular";
+            }
+        }
         String referer = request.getHeader("referer");
         if (principal != null) {
             System.out.println("this is the principle " +principal.getName());
@@ -51,7 +60,8 @@ public class MovieController {
     }
 
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(HttpServletRequest request, Model model) {
+        request.getSession().removeAttribute(PAGE);
         List<Movie> movies = dbMovieService.getTopRatedMovies().subList(0,4);
         List<Movie> movieList = dbMovieService.getUpcomingMovies().subList(0,4);
         System.out.println(movies);
@@ -167,7 +177,8 @@ public class MovieController {
     }
 
     @GetMapping("/movies/popular")
-    public String popularMovies(Model model, Principal principal){
+    public String popularMovies(HttpServletRequest request, Model model, Principal principal){
+        request.getSession().setAttribute(PAGE, "popular");
         List<Movie> movieList = dbMovieService.getPopularDbMovie();
         String user = getUser(model, principal);
         if (null == user){
@@ -195,7 +206,7 @@ public class MovieController {
         return "movies2";
     }
 
-    @GetMapping("/movies/topRated")
+    @GetMapping("/movies/toprated")
     public String topRatedMovies(Model model, Principal principal){
         List<Movie> movieList = dbMovieService.getTopRatedMovies();
         String user = getUser(model, principal);

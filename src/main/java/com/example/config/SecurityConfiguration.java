@@ -117,10 +117,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
 
+        OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/google");
+        OAuth2RestTemplate googleTemplate = new OAuth2RestTemplate(google(), oauth2ClientContext);
+        googleFilter.setRestTemplate(googleTemplate);
+        UserInfoTokenServices tokenServices = new UserInfoTokenServices(googleResource().getUserInfoUri(), google().getClientId());
+        tokenServices.setRestTemplate(googleTemplate);
+        googleFilter.setTokenServices(tokenServices);
+        filters.add(googleFilter);
+
         OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/facebook");
         OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
         facebookFilter.setRestTemplate(facebookTemplate);
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(), facebook().getClientId());
+        tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(), facebook().getClientId());
         tokenServices.setRestTemplate(facebookTemplate);
         facebookFilter.setTokenServices(tokenServices);
         filters.add(facebookFilter);
@@ -135,6 +143,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         filter.setFilters(filters);
         return filter;
+    }
+
+    @Bean
+    @ConfigurationProperties("google.client")
+    public AuthorizationCodeResourceDetails google() {
+        return new AuthorizationCodeResourceDetails();
+
+    }
+
+    @Bean
+    @ConfigurationProperties("google.resource")
+    public ResourceServerProperties googleResource() {
+        return new ResourceServerProperties();
+
     }
 
     @Bean
