@@ -80,6 +80,7 @@ build/
 # Package Files
 ######################
 *.jar
+!target/sandbox-0.0.1-SNAPSHOT.jar
 *.war
 *.ear
 *.db
