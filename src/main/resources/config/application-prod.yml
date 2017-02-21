@@ -21,9 +21,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/sandbox?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: root
-        password:
+        url: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_50d3ee9b3801309?reconnect=true
+        username: b47fcd9653ee83
+        password: 7c1246c6
         hikari:
             data-source-properties:
                 cachePrepStmts: true

@@ -40,6 +40,10 @@ public class MovieController {
 
     @GetMapping("/")
     public String root(HttpServletRequest request, Principal principal) {
+        if (principal != null) {
+            System.out.println("this is the principle " +principal.getName());
+            this.addSocialUser(principal.getName());
+        }
         String page = (String)request.getSession().getAttribute(PAGE);
         if (page != null) {
             request.getSession().removeAttribute(PAGE);
@@ -56,22 +60,9 @@ public class MovieController {
             }
         }
 
-        /*
-        ACTION(28,"Action"),
-    COMEDY(35,"Comedy"),
-    DRAMA(18, "Drama"),
-    FAMILY(10751, "Family"),
-    HORROR(27, "Horror"),
-    ROMANCE(10749,"Romance");
-        *\
-         */
-
         String referer = request.getHeader("referer");
-        if (principal != null) {
-            System.out.println("this is the principle " +principal.getName());
-        }
+
         if (referer != null && principal != null) {
-            this.addSocialUser(principal.getName());
             return "redirect:/home";
         } else {
             return "redirect:/home";

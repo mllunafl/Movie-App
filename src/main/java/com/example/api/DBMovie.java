@@ -158,15 +158,4 @@ public class DBMovie implements Serializable {
         return status;
     }
 
-//    public static void main(String[] args) {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//
-//       HttpEntity<String> entity = new HttpEntity<>();
-//        //System.out.println(restTemplate.getForObject("https://api.themoviedb.org/3/movie/297761?api_key=f3d19e01363ab38b737c12cd2e9b704c&language=en-US",String.class));
-//
-//        //RestTemplate restTemplate = new RestTemplate();
-//        DBMovie dbMovie = restTemplate.getForObject("https://api.themoviedb.org/3/movie/297761?api_key=f3d19e01363ab38b737c12cd2e9b704c&language=en-US", DBMovie.class);
-//        System.out.println(dbMovie);
-//    }
 }

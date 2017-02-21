@@ -100,15 +100,4 @@ public class DBMovieService {
         }
         return movies;
     }
-
-
-    public static void main(String[] args) {
-        DBMovieService dbMovieService = new DBMovieService();
-        List<Movie> movieList;
-
-        movieList = dbMovieService.getUpcomingMovies();
-        System.out.println("size: " + movieList.size());
-        System.out.println("upcoming" + movieList);
-
-    }
 }
