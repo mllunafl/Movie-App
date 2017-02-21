@@ -139,20 +139,18 @@
     <!-- Example row of columns -->
 
     <div class="inner cover">
-        <h1 class="cover-heading">Keep track of what you've seen!!</h1>
-        <h3 th:text="${title}">Popular Movies</h3>
+        <h2 th:text="${title}">Popular Movies</h2>
+        <p class="cover-heading">Keep track of what you've seen!!</p>
         <div class="row">
             <div class="col-md-3" th:each="movie: ${movies}">
                 <img class="poster" th:src="${movie.poster_url}"/>
-                <!--<img class="poster" th:text="src=${movie.posterUrl}" />-->
                 <h6 th:text="${movie.title}"></h6>
                 <select sec:authorize="isAuthenticated()" class="interesting">
-                    <option sec:authorize="isAuthenticated()" th:value="':' + 'delete' + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'">&nbsp;</option>
-                    <option sec:authorize="isAuthenticated()" th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"
+                    <option  th:value="':' + 'delete' + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'">&nbsp;</option>
+                    <option th:each="interest : ${T(com.example.domain.enumeration.Interest).values()}"
                             th:value="':' + ${interest} + ':' + ${movie.dbmovieId} + ':' + ${userId} + ':'"
                             th:text="${interest.name}"
                             th:selected="(${movie.interest} == ${interest})">
-                        Options
                     </option>
                 </select>
                 <div class="btn-group" sec:authorize="isAnonymous()">
