@@ -28,6 +28,7 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "herokuAppName": "feelin-movie"
   }
 }
