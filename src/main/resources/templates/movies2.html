@@ -29,13 +29,9 @@
          Multiple lines will require custom code not provided by Bootstrap. -->
     <div class="masthead">
         <h3 class="text-muted">Feelin' Movie</h3>
+
         <nav class="navbar navbar-light bg-faded rounded mb-3">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-toggleable-md" id="navbarCollapse">
-                <ul class="nav navbar-nav text-md-center justify-content-md-between">
+            <ul class="nav nav-justified">
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/home}" href="#">Home <span
                             class="sr-only">(current)</span></a>
@@ -78,8 +74,59 @@
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
                     </li>
                 </ul>
-            </div>
         </nav>
+
+        <!--<nav class="navbar navbar-light bg-faded rounded mb-3">-->
+            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"-->
+                    <!--aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">-->
+                <!--<span class="navbar-toggler-icon"></span>-->
+            <!--</button>-->
+            <!--<div class="collapse navbar-toggleable-md" id="navbarCollapse">-->
+                <!--<ul class="nav navbar-nav text-md-center justify-content-md-between">-->
+                    <!--<li class="nav-item active">-->
+                        <!--<a class="nav-link" th:href="@{/home}" href="#">Home <span-->
+                            <!--class="sr-only">(current)</span></a>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item dropdown">-->
+                        <!--<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"-->
+                           <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My List</a>-->
+                        <!--<div class="dropdown-menu" aria-labelledby="dropdown01">-->
+                            <!--<a class="dropdown-item"  sec:authorize="isAuthenticated()" th:href="@{'/movies/seenit'}" href="#">Seen it</a>-->
+                            <!--<a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{'/movies/wanasee'}" href="#">Wana See</a>-->
+                            <!--<a class="nav-link"  sec:authorize="isAnonymous()" href="#" data-toggle="modal" data-target="#signinModal">Sign in to see your list</a>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item dropdown">-->
+                        <!--<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"-->
+                           <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>-->
+                        <!--<div class="dropdown-menu" aria-labelledby="dropdown01">-->
+                            <!--<a class="dropdown-item" th:href="@{'/movies/popular'}" href="#">Popular</a>-->
+                            <!--<a class="dropdown-item" th:href="@{'/movies/toprated'}" href="#">Top Rated</a>-->
+                            <!--<a class="dropdown-item" th:href="@{'/movies/upcoming'}" href="#">Upcoming</a>-->
+                            <!--<a class="dropdown-item" th:href="@{'/movies/nowplaying'}" href="#">Now Playing</a>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item dropdown">-->
+                        <!--<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"-->
+                           <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>-->
+                        <!--<div class="dropdown-menu" aria-labelledby="dropdown01">-->
+                            <!--<a class="dropdown-item"-->
+                               <!--th:each="genre : ${T(com.example.domain.enumeration.Genre).values()}" th:value="${genre}"-->
+                               <!--th:text="${genre.name}" th:href="@{'/movies/genre/' + ${genre.id}}">Action</a>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item" sec:authorize="isAnonymous()">-->
+                        <!--<a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In</a>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">-->
+                        <!--<a class="nav-link" href="/admin.html">Admin Page</a>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item" sec:authorize="isAuthenticated()">-->
+                        <!--<a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Sign Out</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</nav>-->
     </div>
 
     <!-- Jumbotron -->
@@ -108,20 +155,15 @@
                         Options
                     </option>
                 </select>
-                <!--<select sec:authorize="isAnonymous()">-->
-                    <!--<option sec:authorize="isAnonymous()" >&nbsp;</option>-->
-                    <!--<option sec:authorize="isAnonymous()"><a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In to add to your list</a></option>-->
-                <!--</select>-->
                 <div class="btn-group" sec:authorize="isAnonymous()">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <span data-bind="label"></span>&nbsp;<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                <li >
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign In to add to your list</a>
-                </li>
-                </ul>
+                    <button type="button"  class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add to List <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign in to Add</a></li>
+                    </ul>
                 </div>
+
             </div>
         </div>
     </div>
@@ -142,16 +184,16 @@
                     <p><i class="fa fa-question-circle"></i> Sign in to add movies to your list!<br /></p>
                     <div class="actionsBtns">
                         <form class="form-signin"  th:action="@{/login}" method="post">
-                            <label for="inputText" class="sr-only">Username</label>
-                            <input type="text" id="inputText" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus"></input>
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="required"></input>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="remember-me"> Remember me</input>
-                                </label>
-                            </div>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            <!--<label for="inputText" class="sr-only">Username</label>-->
+                            <!--<input type="text" id="inputText" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus"></input>-->
+                            <!--<label for="inputPassword" class="sr-only">Password</label>-->
+                            <!--<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="required"></input>-->
+                            <!--<div class="checkbox">-->
+                                <!--<label>-->
+                                    <!--<input type="checkbox" value="remember-me"> Remember me</input>-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
                             <div>
                                 With Facebook: <a href="/login/facebook">click here</a>
                             </div>
@@ -205,24 +247,5 @@
 <!--<script src="../../app/dropdown.js"></script>-->
 <script src="../../app/movies.js"></script>
 </body>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
-</nav>
 </html>
 

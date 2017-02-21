@@ -45,8 +45,27 @@ public class MovieController {
             request.getSession().removeAttribute(PAGE);
             if ("popular".equals(page)) {
                 return "redirect:/movies/popular";
+            } else if("upcoming".equals(page)){
+                return "redirect:/movies/upcoming";
+            } else if("toprated".equals(page)){
+                return "redirect:/movies/toprated";
+            } else if ("nowplaying".equals(page)){
+                return "redirect:/movies/nowplaying";
+            } else {
+                return "redirect:/movies/genre/" + page;
             }
         }
+
+        /*
+        ACTION(28,"Action"),
+    COMEDY(35,"Comedy"),
+    DRAMA(18, "Drama"),
+    FAMILY(10751, "Family"),
+    HORROR(27, "Horror"),
+    ROMANCE(10749,"Romance");
+        *\
+         */
+
         String referer = request.getHeader("referer");
         if (principal != null) {
             System.out.println("this is the principle " +principal.getName());
@@ -91,17 +110,15 @@ public class MovieController {
         return "homepage";
     }
 
+
     @GetMapping("/movies/genre/{id}")
-    public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal){
+    public String moviesByGenre(@PathVariable("id") int id, Model model, Principal principal, HttpServletRequest request){
+        request.getSession().setAttribute(PAGE, Integer.toString(id));
         List<Movie> movieList = dbMovieService.getMoviesByGenre(id);
         String user = getUser(model, principal);
-        System.out.println("in get genre before if, principle" + principal.toString());
-        System.out.println("in get genre before if user is " + user);
         if (null == user){
             model.addAttribute("movies", movieList);
-            System.out.println("in get genre user == null" + user);
         } else if(!"null".equals(user)) {
-            System.out.println("in get genre user != null" + user);
             List<Movie> movies = this.setInterest(movieList);
             model.addAttribute("movies", movies);
         }
@@ -207,7 +224,8 @@ public class MovieController {
     }
 
     @GetMapping("/movies/toprated")
-    public String topRatedMovies(Model model, Principal principal){
+    public String topRatedMovies(HttpServletRequest request, Model model, Principal principal){
+        request.getSession().setAttribute(PAGE, "toprated");
         List<Movie> movieList = dbMovieService.getTopRatedMovies();
         String user = getUser(model, principal);
         if (null == user){
@@ -236,7 +254,8 @@ public class MovieController {
     }
 
     @GetMapping("/movies/upcoming")
-    public String upcomingMovies(Model model, Principal principal){
+    public String upcomingMovies(HttpServletRequest request, Model model, Principal principal){
+        request.getSession().setAttribute(PAGE, "upcoming");
         List<Movie> movieList = dbMovieService.getUpcomingMovies();
         String user = getUser(model, principal);
         if (null == user){
@@ -265,7 +284,8 @@ public class MovieController {
     }
 
     @GetMapping("/movies/nowplaying")
-    public String nowPlayingMovies(Model model, Principal principal){
+    public String nowPlayingMovies(HttpServletRequest request, Model model, Principal principal){
+        request.getSession().setAttribute(PAGE, "nowplaying");
         List<Movie> movieList = dbMovieService.getNowPlayingMovies();
         String user = getUser(model, principal);
         if (null == user){
