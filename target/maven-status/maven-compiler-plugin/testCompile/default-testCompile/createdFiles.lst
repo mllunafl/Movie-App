@@ -1,0 +1,10 @@
+com/example/web/rest/MovieResourceIntTest.class
+com/example/web/rest/TestUtil.class
+com/example/web/rest/AccountResourceIntTest.class
+com/example/web/rest/MovieWatchlistResourceIntTest.class
+com/example/web/rest/UserResourceIntTest.class
+com/example/web/rest/AuditResourceIntTest.class
+com/example/web/rest/MovieWishlistResourceIntTest.class
+com/example/service/UserServiceIntTest.class
+com/example/web/rest/TestUtil$ZonedDateTimeMatcher.class
+com/example/security/SecurityUtilsUnitTest.class
