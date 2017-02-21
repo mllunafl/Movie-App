@@ -1,0 +1,23 @@
+{
+    "sandboxApp": {
+        "movie_wishlist" : {
+            "home": {
+                "title": "Movie Wishlists",
+                "createLabel": "Crear nuevo Movie Wishlist",
+                "createOrEditLabel": "Crear o editar Movie Wishlist",
+                "search": "Search for Movie Wishlist"
+            },
+            "created": "Un nuevo Movie Wishlist ha sido creado con el identificador {{ param }}",
+            "updated": "Un Movie Wishlist ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Movie Wishlist ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Movie Wishlist {{ id }}?"
+            },
+            "detail": {
+                "title": "Movie Wishlist"
+            },
+            "dbmovie_id": "Dbmovie Id",
+            "user": "User"
+        }
+    }
+}
