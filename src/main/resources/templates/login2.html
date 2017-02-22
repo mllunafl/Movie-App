@@ -10,10 +10,10 @@
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../content/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"></link>
 
     <!-- Custom styles for this template -->
-    <link href="../../content/css/login.css" rel="stylesheet"></link>
+    <link href="css/login.css" rel="stylesheet"></link>
 </head>
 
 <body>
@@ -22,26 +22,16 @@
 
     <form class="form-signin"  th:action="@{/login}" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <!--<label for="inputText" class="sr-only">Username</label>-->
-        <!--<input type="text" id="inputText" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus"></input>-->
-        <!--<label for="inputPassword" class="sr-only">Password</label>-->
-        <!--<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="required"></input>-->
-        <!--<div class="checkbox">-->
-            <!--<label>-->
-                <!--<input type="checkbox" value="remember-me"> Remember me</input>-->
-            <!--</label>-->
-        <!--</div>-->
-        <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-        <div>
-            With Facebook: <a href="/login/facebook">click here</a>
+        <label for="inputText" class="sr-only">Username</label>
+        <input type="text" id="inputText" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus"></input>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="required"></input>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me</input>
+            </label>
         </div>
-        <div>
-            With Github: <a href="/login/github">click here</a>
-        </div>
-        <div>
-            With Google: <a href="/login/google">click here</a>
-        </div>
-        <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
 
 </div> <!-- /container -->
