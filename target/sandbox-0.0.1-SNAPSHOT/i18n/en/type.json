@@ -1,0 +1,9 @@
+{
+    "sandboxApp": {
+        "Type" : {
+            "null": "",
+            "WATCH": "WATCH",
+            "WISH": "WISH"
+        }
+    }
+}
