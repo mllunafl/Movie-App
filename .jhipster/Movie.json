@@ -1,0 +1,51 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "movie_wishlist",
+            "otherEntityName": "movie_wishlist",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "movie_watchlist",
+            "otherEntityName": "movie_watchlist",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dbmovie_id",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "poster_path",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "poster_url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "interest",
+            "fieldType": "Interest",
+            "fieldValues": "SEEN_IT,WANT_TO_SEE"
+        }
+    ],
+    "changelogDate": "20170207220703",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "movie",
+    "pagination": "no"
+}

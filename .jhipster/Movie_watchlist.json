@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "movie_watchlist"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dbmovie_id",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170216212142",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "movie_watchlist",
+    "pagination": "no"
+}

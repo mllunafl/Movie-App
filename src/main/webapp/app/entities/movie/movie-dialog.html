@@ -1,0 +1,85 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myMovieLabel" data-translate="sandboxApp.movie.home.createOrEditLabel">Create or edit a Movie</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.movie.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.movie.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.movie.title"
+                    required/>
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.dbmovie_id" for="field_dbmovie_id">Dbmovie Id</label>
+            <input type="number" class="form-control" name="dbmovie_id" id="field_dbmovie_id"
+                    ng-model="vm.movie.dbmovie_id"
+                    required/>
+            <div ng-show="editForm.dbmovie_id.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dbmovie_id.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dbmovie_id.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.poster_path" for="field_poster_path">Poster Path</label>
+            <input type="text" class="form-control" name="poster_path" id="field_poster_path"
+                    ng-model="vm.movie.poster_path"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.poster_url" for="field_poster_url">Poster Url</label>
+            <input type="text" class="form-control" name="poster_url" id="field_poster_url"
+                    ng-model="vm.movie.poster_url"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="sandboxApp.movie.interest" for="field_interest">Interest</label>
+            <select class="form-control" name="interest" ng-model="vm.movie.interest" id="field_interest">
+                <option value="SEEN_IT" data-translate="sandboxApp.Interest.SEEN_IT">SEEN_IT</option>
+                <option value="WANT_TO_SEE" data-translate="sandboxApp.Interest.WANT_TO_SEE">WANT_TO_SEE</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label data-translate="sandboxApp.movie.movie_wishlist" for="field_movie_wishlist">Movie Wishlist</label>
+            <select class="form-control" id="field_movie_wishlist" name="movie_wishlist" ng-model="vm.movie.movie_wishlist" ng-options="movie_wishlist as movie_wishlist.id for movie_wishlist in vm.movie_wishlists track by movie_wishlist.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="sandboxApp.movie.movie_watchlist" for="field_movie_watchlist">Movie Watchlist</label>
+            <select class="form-control" id="field_movie_watchlist" name="movie_watchlist" ng-model="vm.movie.movie_watchlist" ng-options="movie_watchlist as movie_watchlist.id for movie_watchlist in vm.movie_watchlists track by movie_watchlist.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

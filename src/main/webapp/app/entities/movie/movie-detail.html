@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="sandboxApp.movie.detail.title">Movie</span> {{vm.movie.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="sandboxApp.movie.title">Title</span></dt>
+        <dd>
+            <span>{{vm.movie.title}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.dbmovie_id">Dbmovie Id</span></dt>
+        <dd>
+            <span>{{vm.movie.dbmovie_id}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.poster_path">Poster Path</span></dt>
+        <dd>
+            <span>{{vm.movie.poster_path}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.poster_url">Poster Url</span></dt>
+        <dd>
+            <span>{{vm.movie.poster_url}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.interest">Interest</span></dt>
+        <dd>
+            <span data-translate="{{'sandboxApp.Interest.' + vm.movie.interest}}">{{vm.movie.interest}}</span>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.movie_wishlist">Movie Wishlist</span></dt>
+        <dd>
+            <a ui-sref="movie-wishlist-detail({id:vm.movie.movie_wishlist.id})">{{vm.movie.movie_wishlist.id}}</a>
+        </dd>
+        <dt><span data-translate="sandboxApp.movie.movie_watchlist">Movie Watchlist</span></dt>
+        <dd>
+            <a ui-sref="movie-watchlist-detail({id:vm.movie.movie_watchlist.id})">{{vm.movie.movie_watchlist.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="movie-detail.edit({id:vm.movie.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
