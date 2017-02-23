@@ -269,7 +269,7 @@ public class MovieController {
         this.postInterest(movie, interest, username);
         List<Movie> movies = dbMovieService.getUpcomingMovies();
         model.addAttribute("movies", movies);
-        model.addAttribute("title", "Top Rated Movies");
+        model.addAttribute("title", "Upcoming Movies");
         return "movies2";
     }
 
