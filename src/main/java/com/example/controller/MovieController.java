@@ -164,7 +164,7 @@ public class MovieController {
         List<Movie> movies = this.setInterest(movieList);
         getUser(model, principal);
         model.addAttribute("movies", movies);
-        model.addAttribute("title", "Popular Movies");
+        model.addAttribute("title", "My 'Wana It' List");
         return "movies2";
     }
 
@@ -179,7 +179,7 @@ public class MovieController {
         this.postInterest(movie, interest, username);
         List<Movie> movies = wishlistService.turnResultsToList();
         model.addAttribute("movies", movies);
-        model.addAttribute("title", "My 'Seen It' List");
+        model.addAttribute("title", "My 'Wana It' List");
         return "movies2";
     }
 
