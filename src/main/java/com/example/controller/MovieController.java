@@ -124,7 +124,6 @@ public class MovieController {
                                  @RequestParam(value = "movieId", required = true) Integer movieId,
                                  @RequestParam(value = "username", required = true) String username
     ) {
-        System.out.println("\n\n In post for genre" + interest + movieId + username);
         Movie movie = dbMovieService.getDbMovie(movieId);
         this.postInterest(movie, interest, username);
         List<Movie> movies = dbMovieService.getMoviesByGenre(id);

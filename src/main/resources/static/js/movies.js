@@ -9,7 +9,9 @@ $(document).ready(function() {
            alert("you must log in first")
            return
        }
-          $.post( window.location.href + '/interest',
+
+        var nohash = window.location.href.split('#')[0];
+          $.post( nohash + '/interest',
                { interest: split[1], movieId: split[2], username: split[3] });
    })
 })
